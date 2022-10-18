@@ -1,4 +1,4 @@
-package pl.first.firstjava;
+package lodz.p.pk.sudoku;
 
 import lodz.p.pk.sudoku.SudokuBoard;
 /**
@@ -6,7 +6,7 @@ import lodz.p.pk.sudoku.SudokuBoard;
  *
  */
 
-public class App {
+public class main {
     public static void main(String[] args) {
         SudokuBoard sb = new SudokuBoard();
         sb.printBoard();

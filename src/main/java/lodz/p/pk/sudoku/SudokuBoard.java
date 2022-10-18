@@ -39,35 +39,28 @@ public class SudokuBoard {
         return true;
     }
     private  boolean checkConditions(int[][] array, int column, int row, int number) {
-        if(checkRow(array, row, number) && checkColumn(array, column, number) && checkSquare(array, column, row, number)){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return checkRow(array, row, number) && checkColumn(array, column, number) && checkSquare(array, column, row, number);
     }
-    private  int[][] initBoard() {
+    private void initFirstRow() {
         Random rand = new Random();
-        int[][] result = new int[9][9];
         int x = rand.nextInt(1, 10);
-        for (int i = 0; i < result.length; i++) {
-            while (result[0][i] == 0) {
-                if (checkRow(result, 0, x)) {
+        for (int i = 0; i < board.length; i++) {
+            while (board[0][i] == 0) {
+                if (checkRow(board, 0, x)) {
 
-                    result[0][i] = x;
+                    board[0][i] = x;
                 }
                 x = rand.nextInt(1, 10);
             }
         }
-        return result;
     }
 
     private void fillBoard(){
-
+        initFirstRow();
+        
     }
 
     public SudokuBoard() {
-        board = initBoard();
     }
 
     public void printBoard() {
