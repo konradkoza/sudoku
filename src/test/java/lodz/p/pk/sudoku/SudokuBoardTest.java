@@ -114,8 +114,4 @@ class SudokuBoardTest {
         }
         assertTrue(!areIdentical);
     }
-
-    void isWrongSolutionWrong() {
-
-    }
 }
