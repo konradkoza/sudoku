@@ -7,8 +7,27 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SudokuBoardTest {
 
+class SudokuBoardTest {
+    @Test
+    void isBoardDifferent(){
+        SudokuBoard sb1 = new SudokuBoard();
+        SudokuBoard sb2 = new SudokuBoard();
+        sb1.fillBoard();
+        sb2.fillBoard();
+        sb2.printBoard();
+        System.out.println();
+        sb1.printBoard();
+        boolean isDifferent = false;
+        for (int i = 0; i < 9; i++) {
+            if(sb1.getField(0, i) != sb2.getField(0, i)){
+                isDifferent = true;
+            }
+
+        }
+        assertTrue(isDifferent);
+
+    }
     @Test
     void solutionTest(){
         SudokuBoard sb = new SudokuBoard();

@@ -11,7 +11,7 @@ public class Main {
 
 
 
-        sb.printBoard();
+
         sb.fillBoard();
         sb.printBoard();
     }
