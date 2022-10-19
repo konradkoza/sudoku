@@ -34,9 +34,20 @@ class SudokuBoardTest {
     void areTwoBoardsDifferent() {
         SudokuBoard sb1 = new SudokuBoard();
         SudokuBoard sb2 = new SudokuBoard();
+        boolean areIdentical = false;
         sb1.fillBoard();
         sb2.fillBoard();
-        assertTrue(sb1 != sb2);
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                int number1 = sb1.getField(i, j);
+                int number2 = sb2.getField(i, j);
+                if(number1 == number2) {
+                    areIdentical = false;
+                    break;
+                }
+            }
+        }
+        assertTrue(!areIdentical);
     }
 
     void isWrongSolutionWrong() {
