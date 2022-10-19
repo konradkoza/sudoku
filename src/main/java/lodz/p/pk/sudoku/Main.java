@@ -1,6 +1,5 @@
 package lodz.p.pk.sudoku;
 
-import lodz.p.pk.sudoku.SudokuBoard;
 /**
  * Hello world!.
  *
@@ -9,6 +8,11 @@ import lodz.p.pk.sudoku.SudokuBoard;
 public class Main {
     public static void main(String[] args) {
         SudokuBoard sb = new SudokuBoard();
+        sb.initFirstRow();
+
+
+        sb.printBoard();
+        System.out.println("\nWartosc logiczna " + sb.fillBoard() + "\n");
         sb.printBoard();
     }
 }
