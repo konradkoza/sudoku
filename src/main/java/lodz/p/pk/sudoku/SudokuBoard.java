@@ -46,11 +46,13 @@ public class SudokuBoard {
 
     public  boolean checkForIdenticalRowValues(int row) {
         int[] rowCount = new int[9];
-        for(int i = 0; i < 9; i++) {
-            rowCount[board[row][i]-1]++;
+        for (int i = 0; i < 9; i++) {
+            rowCount[board[row][i] - 1]++;
         }
         for (int i = 0; i < 9; i++) {
-            if(rowCount[i] > 1) return true;
+            if (rowCount[i] > 1) {
+                return true;
+            }
         }
         return false;
     }
@@ -58,10 +60,12 @@ public class SudokuBoard {
     public  boolean checkForIdenticalColumnValues(int column) {
         int[] columnCount = new int[9];
         for (int i = 0; i < 9; i++) {
-            columnCount[board[i][column]-1]++;
+            columnCount[board[i][column] - 1]++;
         }
         for (int i = 0; i < 9; i++) {
-            if(columnCount[i] > 1) return true;
+            if (columnCount[i] > 1) {
+                return true;
+            }
         }
         return false;
     }
@@ -72,11 +76,13 @@ public class SudokuBoard {
         int[] boxCount = new int[9];
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                boxCount[board[i+firstRow][j+firstColumn]-1]++;
+                boxCount[board[i + firstRow][j + firstColumn] - 1]++;
             }
         }
         for (int i = 0; i < 9; i++) {
-            if(boxCount[i] > 1) return true;
+            if (boxCount[i] > 1) {
+                return true;
+            }
         }
         return false;
     }
