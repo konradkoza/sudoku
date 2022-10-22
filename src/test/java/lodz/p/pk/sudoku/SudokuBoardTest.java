@@ -11,8 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class SudokuBoardTest {
     @Test
     void isBoardDifferent(){
-        SudokuBoard sb1 = new SudokuBoard();
-        SudokuBoard sb2 = new SudokuBoard();
+        SudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard sb1 = new SudokuBoard(sudokuSolver);
+        SudokuBoard sb2 = new SudokuBoard(sudokuSolver);
         sb1.fillBoard();
         sb2.fillBoard();
         boolean isDifferent = false;
@@ -27,7 +28,8 @@ class SudokuBoardTest {
 
     @Test
     void solutionTest(){
-        SudokuBoard sb = new SudokuBoard();
+        SudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard sb = new SudokuBoard(sudokuSolver);
         sb.fillBoard();
         Set<Integer> numbers = new HashSet<Integer>();
         for (int i = 0; i < 9; i++) {

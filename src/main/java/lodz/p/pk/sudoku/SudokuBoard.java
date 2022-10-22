@@ -1,35 +1,37 @@
 package lodz.p.pk.sudoku;
 
 import java.util.Random;
+import lodz.p.pk.sudoku.BacktrackingSudokuSolver;
 
 public class SudokuBoard {
 
+    private SudokuSolver sudokuSolver;
     private int[][] board = new int[9][9];
 
-    private boolean checkRow(int[][] array, int row, int number) {
-        for (int i = 0; i < array.length; i++) {
-            if (array[row][i] == number) {
+    private boolean checkRow(int row, int number) {
+        for (int i = 0; i < 9; i++) {
+            if (getField(row, i) == number) {
                 return false;
             }
         }
         return true;
     }
 
-    private  boolean checkColumn(int[][] array, int column, int number) {
-        for (int i = 0; i < array.length; i++) {
-            if (array[i][column] == number) {
+    private  boolean checkColumn( int column, int number) {
+        for (int i = 0; i < 9; i++) {
+            if (getField(i, column) == number) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean checkSquare(int[][] array, int column, int row, int number) {
+    private boolean checkSquare(int column, int row, int number) {
         int firstColumn = column - column %  3;
         int firstRow = row - row % 3;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (array[i + firstRow][j + firstColumn] == number) {
+                if (getField(i + firstRow,j + firstColumn) == number)  {
                     return false;
                 }
             }
@@ -37,9 +39,9 @@ public class SudokuBoard {
         return true;
     }
 
-    private  boolean checkConditions(int[][] array, int column, int row, int number) {
-        return checkRow(array, row, number) && checkColumn(array, column, number)
-                && checkSquare(array, column, row, number);
+    public  boolean checkConditions( int column, int row, int number) {
+        return checkRow(row, number) && checkColumn(column, number)
+                && checkSquare(column, row, number);
     }
 
     private void initFirstRow() {
@@ -47,7 +49,7 @@ public class SudokuBoard {
         int x = rand.nextInt(1, 10);
         for (int i = 0; i < board.length; i++) {
             while (board[0][i] == 0) {
-                if (checkRow(board, 0, x)) {
+                if (checkRow(0, x)) {
 
                     board[0][i] = x;
                 }
@@ -61,7 +63,7 @@ public class SudokuBoard {
             for (int column = 0; column < 9; column++) {
                 if (board[row][column] == 0) {
                     for (int numberToTry = 1; numberToTry <= 9; numberToTry++) {
-                        if (checkConditions(board, column, row, numberToTry)) {
+                        if (checkConditions(column, row, numberToTry)) {
                             board[row][column] = numberToTry;
                             if (solveBoard()) {
                                 return true;
@@ -77,12 +79,17 @@ public class SudokuBoard {
         return true;
     }
 
+    public void solveGame(){
+        sudokuSolver.solve(this);
+    }
+
     public void fillBoard() {
-        initFirstRow();
         solveBoard();
     }
 
-    public SudokuBoard() {
+    public SudokuBoard(SudokuSolver solver) {
+        initFirstRow();
+        sudokuSolver = solver;
     }
 
     public void printBoard() {
@@ -96,7 +103,13 @@ public class SudokuBoard {
         }
     }
 
+
     public int getField(int i, int j)  {
         return board[i][j];
     }
+
+    public void setField(int i, int j, int number) {
+        board[i][j] = number;
+    }
 }
+

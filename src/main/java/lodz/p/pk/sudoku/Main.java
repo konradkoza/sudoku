@@ -7,8 +7,9 @@ package lodz.p.pk.sudoku;
 
 public class Main {
     public static void main(String[] args) {
-        SudokuBoard sb = new SudokuBoard();
-        sb.fillBoard();
+        SudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard sb = new SudokuBoard(sudokuSolver);
+        sb.solveGame();
         sb.printBoard();
     }
 }
