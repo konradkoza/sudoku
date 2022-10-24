@@ -14,6 +14,11 @@
       <name>Konrad Koza</name>
       <email>242436@edu.p.lodz.pl</email>
     </developer>
+    <developer>
+      <id>jjanuszewicz</id>
+      <name>Jakub Januszewicz</name>
+      <email>242408@edu.p.lodz.pl</email>
+    </developer>
   </developers>
   <description>Projekt grupy laboratoryjnej lch_cz_1015_06</description>
   <build>
