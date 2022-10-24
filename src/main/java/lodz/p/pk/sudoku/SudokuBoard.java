@@ -16,7 +16,7 @@ public class SudokuBoard {
         return true;
     }
 
-    private  boolean checkColumn( int column, int number) {
+    private  boolean checkColumn(int column, int number) {
         for (int i = 0; i < 9; i++) {
             if (getField(i, column) == number) {
                 return false;
@@ -38,7 +38,7 @@ public class SudokuBoard {
         return true;
     }
 
-    public  boolean checkConditions( int column, int row, int number) {
+    public  boolean checkConditions(int column, int row, int number) {
         return checkRow(row, number) && checkColumn(column, number)
                 && checkSquare(column, row, number);
     }
@@ -57,7 +57,7 @@ public class SudokuBoard {
         }
     }
 
-    public void solveGame(){
+    public void solveGame() {
         sudokuSolver.solve(this);
     }
 
@@ -66,14 +66,7 @@ public class SudokuBoard {
         sudokuSolver = solver;
     }
 
-    public void printBoard() {
-        for (int[] ints : board) {
-            for (int anInt : ints) {
-                System.out.print(anInt + "  ");
-            }
-            System.out.print("\n");
-        }
-    }
+
 
 
     public int getField(int i, int j)  {
