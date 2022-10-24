@@ -1,12 +1,11 @@
 package lodz.p.pk.sudoku;
 
 import java.util.Random;
-import lodz.p.pk.sudoku.BacktrackingSudokuSolver;
 
 public class SudokuBoard {
 
-    private SudokuSolver sudokuSolver;
-    private int[][] board = new int[9][9];
+    private final SudokuSolver sudokuSolver;
+    private final int[][] board = new int[9][9];
 
     private boolean checkRow(int row, int number) {
         for (int i = 0; i < 9; i++) {
@@ -58,33 +57,8 @@ public class SudokuBoard {
         }
     }
 
-    private boolean solveBoard() {
-        for (int row = 0; row < 9; row++) {
-            for (int column = 0; column < 9; column++) {
-                if (board[row][column] == 0) {
-                    for (int numberToTry = 1; numberToTry <= 9; numberToTry++) {
-                        if (checkConditions(column, row, numberToTry)) {
-                            board[row][column] = numberToTry;
-                            if (solveBoard()) {
-                                return true;
-                            } else {
-                                board[row][column] = 0;
-                            }
-                        }
-                    }
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
     public void solveGame(){
         sudokuSolver.solve(this);
-    }
-
-    public void fillBoard() {
-        solveBoard();
     }
 
     public SudokuBoard(SudokuSolver solver) {
@@ -93,13 +67,11 @@ public class SudokuBoard {
     }
 
     public void printBoard() {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[i].length; j++) {
-                System.out.print(board[i][j] + "  ");
+        for (int[] ints : board) {
+            for (int anInt : ints) {
+                System.out.print(anInt + "  ");
             }
             System.out.print("\n");
-
-
         }
     }
 

@@ -1,7 +1,5 @@
 package lodz.p.pk.sudoku;
 
-import lodz.p.pk.sudoku.SudokuSolver;
-
 public class BacktrackingSudokuSolver implements SudokuSolver {
 
     @Override

@@ -14,8 +14,8 @@ class SudokuBoardTest {
         SudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
         SudokuBoard sb1 = new SudokuBoard(sudokuSolver);
         SudokuBoard sb2 = new SudokuBoard(sudokuSolver);
-        sb1.fillBoard();
-        sb2.fillBoard();
+        sb1.solveGame();
+        sb2.solveGame();
         boolean isDifferent = false;
         for (int i = 0; i < 9; i++) {
             if(sb1.getField(0, i) != sb2.getField(0, i)){
@@ -30,20 +30,20 @@ class SudokuBoardTest {
     void solutionTest(){
         SudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
         SudokuBoard sb = new SudokuBoard(sudokuSolver);
-        sb.fillBoard();
-        Set<Integer> numbers = new HashSet<Integer>();
+        sb.solveGame();
+        Set<Integer> numbers = new HashSet<>();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 numbers.add(sb.getField(i, j));
             }
-            assertTrue(numbers.size() == 9);
+            assertEquals(numbers.size(), 9);
             numbers.clear();
         }
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 numbers.add(sb.getField(j, i));
             }
-            assertTrue(numbers.size() == 9);
+            assertEquals(numbers.size(), 9);
             numbers.clear();
         }
         int startRow = 0;
@@ -55,7 +55,7 @@ class SudokuBoardTest {
                         numbers.add(sb.getField(i + startRow, j + startCol));
                     }
                 }
-                assertTrue(numbers.size() == 9);
+                assertEquals(numbers.size(), 9);
                 numbers.clear();
                 startCol += 3;
             }
