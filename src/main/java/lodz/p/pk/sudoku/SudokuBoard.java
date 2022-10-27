@@ -57,7 +57,8 @@ public class SudokuBoard {
             }
         }
     }
-    public SudokuRow getRow(int y){
+
+    public SudokuRow getRow(int y) {
         SudokuField[] fields = new SudokuField[9];
         for (int i = 0; i < 9; i++) {
             fields[i] = board[y][i];
@@ -65,7 +66,7 @@ public class SudokuBoard {
         return new SudokuRow(fields);
     }
 
-    public SudokuColumn getColumn(int x){
+    public SudokuColumn getColumn(int x) {
         SudokuField[] fields = new SudokuField[9];
         for (int i = 0; i < 9; i++) {
             fields[i] = board[i][x];
@@ -73,7 +74,7 @@ public class SudokuBoard {
         return new SudokuColumn(fields);
     }
 
-    public SudokuBox getBox(int x, int y){
+    public SudokuBox getBox(int x, int y) {
         SudokuField[][] fields = new SudokuField[3][3];
         int startRow = 3 * x;
         int startCol = 3 * y;
@@ -92,6 +93,12 @@ public class SudokuBoard {
     }
 
     public SudokuBoard(SudokuSolver solver) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                board[i][j] = new SudokuField();
+            }
+
+        }
         initFirstRow();
         sudokuSolver = solver;
     }
