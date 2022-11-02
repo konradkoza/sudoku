@@ -2,9 +2,6 @@ package lodz.p.pk.sudoku;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -31,36 +28,24 @@ class SudokuBoardTest {
         SudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
         SudokuBoard sb = new SudokuBoard(sudokuSolver);
         sb.solveGame();
-        Set<Integer> numbers = new HashSet<>();
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                numbers.add(sb.getField(i, j));
-            }
-            assertEquals(numbers.size(), 9);
-            numbers.clear();
+        for(int i = 0; i < 9; i++) {
+            assertTrue(sb.getRow(i).verify());
+            assertTrue(sb.getColumn(i).verify());
+            assertTrue(sb.getBox(i % 3, i / 3).verify());
         }
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                numbers.add(sb.getField(j, i));
-            }
-            assertEquals(numbers.size(), 9);
-            numbers.clear();
-        }
-        int startRow = 0;
-        int startCol = 0;
-        for (int l = 0; l < 3; l++) {
-            for (int k = 0; k < 3; k++) {
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        numbers.add(sb.getField(i + startRow, j + startCol));
-                    }
-                }
-                assertEquals(numbers.size(), 9);
-                numbers.clear();
-                startCol += 3;
-            }
-            startCol = 0;
-            startRow += 3;
-        }
+    }
+
+    @Test
+    void wrongSolutionTest(){
+        SudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard sb = new SudokuBoard(sudokuSolver);
+        sb.solveGame();
+        sb.setField(0, 0, 1);
+        sb.setField(0, 1, 1);
+        sb.setField(1, 0, 1);
+        assertFalse(sb.getRow(0).verify());
+        assertFalse(sb.getColumn(0).verify());
+        assertFalse(sb.getBox(0, 0).verify());
+        sb.solveGame();
     }
 }

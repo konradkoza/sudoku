@@ -37,10 +37,8 @@ public class SudokuBoard {
         SudokuField[] fields = new SudokuField[9];
         int startRow = 3 * x;
         int startCol = 3 * y;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                fields[i] = board[startRow + i][startCol + j];
-            }
+        for (int i = 0; i < 9; i++) {
+            fields[i] = board[startRow + i % 3][startCol + i / 3];
         }
         return new SudokuBox(fields);
     }
@@ -49,6 +47,7 @@ public class SudokuBoard {
 
     public void solveGame() {
         sudokuSolver.solve(this);
+        checkBoard();
     }
 
     public SudokuBoard(SudokuSolver solver) {
