@@ -1,11 +1,24 @@
 package lodz.p.pk.sudoku;
 
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
 public class SudokuBoard {
 
+
     private final SudokuSolver sudokuSolver;
     private final SudokuField[][] board = new SudokuField[9][9];
+
+    private final PropertyChangeSupport support;
+
+    public void addPropertyChangeListener(PropertyChangeListener pcl) {
+        support.addPropertyChangeListener(pcl);
+    }
+
+    //    public void removePropertyChangeListener(PropertyChangeListener pcl) {
+    //        support.removePropertyChangeListener(pcl);
+    //    }
 
     private boolean checkBoard() {
         boolean isCorrect = true;
@@ -51,13 +64,13 @@ public class SudokuBoard {
     }
 
     public SudokuBoard(SudokuSolver solver) {
+        support = new PropertyChangeSupport(this);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
                 board[i][j] = new SudokuField();
             }
 
         }
-
         sudokuSolver = solver;
     }
 
@@ -69,7 +82,9 @@ public class SudokuBoard {
     }
 
     public void setField(int i, int j, int number) {
+        boolean checkBeforeChange = this.checkBoard();
         board[i][j].setValue(number);
+        support.firePropertyChange("isCorrect", checkBeforeChange, this.checkBoard());
     }
 }
 

@@ -2,6 +2,9 @@ package lodz.p.pk.sudoku;
 
 import org.junit.jupiter.api.Test;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -47,5 +50,20 @@ class SudokuBoardTest {
         assertFalse(sb.getColumn(0).verify());
         assertFalse(sb.getBox(0, 0).verify());
         sb.solveGame();
+    }
+
+    @Test
+    void observerTest(){
+        SudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard observable = new SudokuBoard(sudokuSolver);
+        Observer observer = new Observer();
+
+        observable.solveGame();
+        observable.addPropertyChangeListener(observer);
+        assertTrue(observer.isCorrect());
+
+        observable.setField(0, 0, 1);
+        observable.setField(0, 1, 1);
+        assertFalse(observer.isCorrect());
     }
 }
