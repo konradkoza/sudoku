@@ -4,18 +4,15 @@ import java.util.Random;
 
 public class BacktrackingSudokuSolver implements SudokuSolver {
 
-    @Override
-    public boolean solve(SudokuBoard sudokuBoard) {
-        if (sudokuBoard.getField(0, 0) == 0) {
-            initFirstRow(sudokuBoard);
-        }
+
+    public boolean fillBoard(SudokuBoard sudokuBoard) {
         for (int row = 0; row < 9; row++) {
             for (int column = 0; column < 9; column++) {
                 if (sudokuBoard.getField(row, column) == 0) {
                     for (int numberToTry = 1; numberToTry <= 9; numberToTry++) {
                         if (checkConditions(column, row, numberToTry, sudokuBoard)) {
                             sudokuBoard.setField(row, column, numberToTry);
-                            if (solve(sudokuBoard)) {
+                            if (fillBoard(sudokuBoard)) {
                                 return true;
                             } else {
                                 sudokuBoard.setField(row, column, 0);
@@ -28,6 +25,27 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
         }
         return true;
 
+    }
+
+    @Override
+    public void solve(SudokuBoard sudokuBoard) {
+        initFirstRow(sudokuBoard);
+        fillBoard(sudokuBoard);
+
+    }
+
+    private void initFirstRow(SudokuBoard sudokuBoard) {
+        Random rand = new Random();
+        int x = rand.nextInt(1, 10);
+        for (int i = 0; i < 9; i++) {
+            while (sudokuBoard.getField(0, i) == 0) {
+                if (checkRow(0, x, sudokuBoard)) {
+
+                    sudokuBoard.setField(0, i, x);
+                }
+                x = rand.nextInt(1, 10);
+            }
+        }
     }
 
     private boolean checkRow(int row, int number, SudokuBoard sudokuBoard) {
@@ -66,17 +84,6 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
                 && checkSquare(column, row, number, sudokuBoard);
     }
 
-    private void initFirstRow(SudokuBoard sudokuBoard) {
-        Random rand = new Random();
-        int x = rand.nextInt(1, 10);
-        for (int i = 0; i < 9; i++) {
-            while (sudokuBoard.getField(0, i) == 0) {
-                if (checkRow(0, x, sudokuBoard)) {
 
-                    sudokuBoard.setField(0, i, x);
-                }
-                x = rand.nextInt(1, 10);
-            }
-        }
-    }
+
 }

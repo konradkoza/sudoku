@@ -34,12 +34,12 @@ public class SudokuBoard {
     }
 
     public SudokuBox getBox(int x, int y) {
-        SudokuField[][] fields = new SudokuField[3][3];
+        SudokuField[] fields = new SudokuField[9];
         int startRow = 3 * x;
         int startCol = 3 * y;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                fields[i][j] = board[startRow + i][startCol + j];
+                fields[i] = board[startRow + i][startCol + j];
             }
         }
         return new SudokuBox(fields);
