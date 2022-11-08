@@ -5,7 +5,7 @@ import java.beans.PropertyChangeListener;
 
 public class Observer implements PropertyChangeListener {
 
-    private boolean isCorrect = true;
+    private boolean isCorrect = false;
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {

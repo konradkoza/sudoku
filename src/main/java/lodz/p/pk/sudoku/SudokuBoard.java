@@ -3,12 +3,16 @@ package lodz.p.pk.sudoku;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Arrays;
+import java.util.List;
 
 public class SudokuBoard {
 
 
     private final SudokuSolver sudokuSolver;
-    private final SudokuField[][] board = new SudokuField[9][9];
+
+    //private final SudokuField[][] board = new SudokuField[9][9];
+    private final List<SudokuField> board = Arrays.asList(new SudokuField[81]);
 
     private final PropertyChangeSupport support;
 
@@ -31,27 +35,29 @@ public class SudokuBoard {
     }
 
     public SudokuRow getRow(int y) {
-        SudokuField[] fields = new SudokuField[9];
+        List<SudokuField> fields = Arrays.asList(new SudokuField[9]);
         for (int i = 0; i < 9; i++) {
-            fields[i] = board[y][i];
+            fields.set(i, board.get(y * 9 + i));
         }
         return new SudokuRow(fields);
     }
 
     public SudokuColumn getColumn(int x) {
-        SudokuField[] fields = new SudokuField[9];
+        List<SudokuField> fields = Arrays.asList(new SudokuField[9]);
         for (int i = 0; i < 9; i++) {
-            fields[i] = board[i][x];
+            fields.set(i, board.get(x + i * 9));
         }
         return new SudokuColumn(fields);
     }
 
     public SudokuBox getBox(int x, int y) {
-        SudokuField[] fields = new SudokuField[9];
+        List<SudokuField> fields = Arrays.asList(new SudokuField[9]);
         int startRow = 3 * x;
         int startCol = 3 * y;
-        for (int i = 0; i < 9; i++) {
-            fields[i] = board[startRow + i % 3][startCol + i / 3];
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                fields.set(i + j, board.get(startRow * 9 + startCol + i * 9 + j));
+            }
         }
         return new SudokuBox(fields);
     }
@@ -67,9 +73,8 @@ public class SudokuBoard {
         support = new PropertyChangeSupport(this);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                board[i][j] = new SudokuField();
+                board.set(i * 9 + j, new SudokuField());
             }
-
         }
         sudokuSolver = solver;
     }
@@ -78,12 +83,12 @@ public class SudokuBoard {
 
 
     public int getField(int i, int j)  {
-        return board[i][j].getValue();
+        return board.get(i * 9 + j).getValue();
     }
 
     public void setField(int i, int j, int number) {
         boolean checkBeforeChange = this.checkBoard();
-        board[i][j].setValue(number);
+        board.get(i * 9 + j).setValue(number);
         support.firePropertyChange("isCorrect", checkBeforeChange, this.checkBoard());
     }
 }

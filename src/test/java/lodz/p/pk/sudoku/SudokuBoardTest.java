@@ -58,8 +58,8 @@ class SudokuBoardTest {
         SudokuBoard observable = new SudokuBoard(sudokuSolver);
         Observer observer = new Observer();
 
-        observable.solveGame();
         observable.addPropertyChangeListener(observer);
+        observable.solveGame();
         assertTrue(observer.isCorrect());
 
         observable.setField(0, 0, 1);

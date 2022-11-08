@@ -3,6 +3,10 @@ package lodz.p.pk.sudoku;
 public class SudokuField {
     private int value;
 
+    public SudokuField() {
+        this.value = 0;
+    }
+
     public int getValue() {
         return value;
     }
