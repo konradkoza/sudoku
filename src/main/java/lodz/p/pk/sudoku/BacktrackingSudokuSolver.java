@@ -4,7 +4,7 @@ package lodz.p.pk.sudoku;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+//import java.util.Random;
 
 public class BacktrackingSudokuSolver implements SudokuSolver {
 
@@ -39,8 +39,8 @@ public class BacktrackingSudokuSolver implements SudokuSolver {
     }
 
     private void initFirstRow(SudokuBoard sudokuBoard) {
-        Random rand = new Random();
-        int x = rand.nextInt(1, 10);
+        //        Random rand = new Random();
+        //        int x = rand.nextInt(1, 10);
         List<Integer> randIntegers = Arrays.asList(new Integer[9]);
         for (int i = 1; i <= 9; i++) {
             randIntegers.set(i - 1, i);

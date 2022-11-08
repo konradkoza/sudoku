@@ -2,8 +2,7 @@ package lodz.p.pk.sudoku;
 
 import org.junit.jupiter.api.Test;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 

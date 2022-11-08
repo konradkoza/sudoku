@@ -13,7 +13,6 @@ public class SudokuBoard {
 
     //private final SudokuField[][] board = new SudokuField[9][9];
     private final List<SudokuField> board = Arrays.asList(new SudokuField[81]);
-
     private final PropertyChangeSupport support;
 
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
