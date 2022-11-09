@@ -11,7 +11,6 @@ public class SudokuBoard {
 
     private final SudokuSolver sudokuSolver;
 
-    //private final SudokuField[][] board = new SudokuField[9][9];
     private final List<SudokuField> board = Arrays.asList(new SudokuField[81]);
     private final PropertyChangeSupport support;
 
@@ -56,7 +55,6 @@ public class SudokuBoard {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 fields.set(i * 3 + j, board.get(startRow * 9 + startCol + i * 9 + j));
-
             }
         }
         return new SudokuBox(fields);
@@ -78,8 +76,6 @@ public class SudokuBoard {
         }
         sudokuSolver = solver;
     }
-
-
 
 
     public int getField(int i, int j)  {

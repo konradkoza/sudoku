@@ -1,6 +1,5 @@
 package lodz.p.pk.sudoku;
 
-import java.util.Arrays;
 import java.util.List;
 
 abstract class SudokuElement {
