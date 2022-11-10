@@ -64,7 +64,6 @@ public class SudokuBoard {
 
     public void solveGame() {
         sudokuSolver.solve(this);
-        checkBoard();
     }
 
     public SudokuBoard(SudokuSolver solver) {
