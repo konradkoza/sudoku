@@ -1,6 +1,7 @@
 package lodz.p.pk.sudoku;
 
 
+import com.google.common.base.Objects;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Arrays;
@@ -85,6 +86,31 @@ public class SudokuBoard {
         boolean checkBeforeChange = this.checkBoard();
         board.get(i * 9 + j).setValue(number);
         support.firePropertyChange("isCorrect", checkBeforeChange, this.checkBoard());
+    }
+
+    @Override
+    public String toString() {
+        return "SudokuBoard{"
+                //"sudokuSolver=" + sudokuSolver +
+                + "board=" + board
+                + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        SudokuBoard that = (SudokuBoard) o;
+        return Objects.equal(sudokuSolver, that.sudokuSolver) && Objects.equal(board, that.board);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(sudokuSolver, board);
     }
 }
 
