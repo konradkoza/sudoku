@@ -74,6 +74,7 @@ class SudokuBoardTest {
         SudokuBoard sb2 = new SudokuBoard(sudokuSolver);
         SudokuBoard sb3 = new SudokuBoard(sudokuSolver2);
 
+        assertTrue(sb.equals(sb2));
         assertFalse(sb.equals(sb3));
 
         sb.solveGame();
@@ -82,9 +83,13 @@ class SudokuBoardTest {
 
         assertNotNull(sb.toString());
         assertNotEquals(sb.hashCode(), sb2.hashCode());
-        assertFalse(sb.equals(sb2));
-        assertFalse(sb.equals(sb3));
         assertTrue(sb.equals(sb));
         assertFalse(sb.equals(null));
+        assertFalse(sb.equals(1));
+
+        assertFalse(sb.equals(sb2));
+        assertFalse(sb.equals(sb3));
+
+
     }
 }

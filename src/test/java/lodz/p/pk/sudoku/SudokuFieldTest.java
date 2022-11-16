@@ -14,11 +14,11 @@ public class SudokuFieldTest {
 
         assertNotNull(sf.toString());
         assertEquals(sf.hashCode(), sf2.hashCode());
-        assertTrue(sf.equals(sf2));
-        sf2.setValue(1);
         assertTrue(sf.equals(sf));
         assertFalse(sf.equals(null));
         assertFalse(sf.equals(1));
+        assertTrue(sf.equals(sf2));
+        sf2.setValue(1);
         assertFalse(sf.equals(sf2));
     }
 }
