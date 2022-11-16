@@ -65,4 +65,26 @@ class SudokuBoardTest {
         observable.setField(0, 1, 1);
         assertFalse(observer.isCorrect());
     }
+
+    @Test
+    void standardMethods(){
+        SudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuSolver sudokuSolver2 = new BacktrackingSudokuSolver();
+        SudokuBoard sb = new SudokuBoard(sudokuSolver);
+        SudokuBoard sb2 = new SudokuBoard(sudokuSolver);
+        SudokuBoard sb3 = new SudokuBoard(sudokuSolver2);
+
+        assertFalse(sb.equals(sb3));
+
+        sb.solveGame();
+        sb2.solveGame();
+        sb3.solveGame();
+
+        assertNotNull(sb.toString());
+        assertNotEquals(sb.hashCode(), sb2.hashCode());
+        assertFalse(sb.equals(sb2));
+        assertFalse(sb.equals(sb3));
+        assertTrue(sb.equals(sb));
+        assertFalse(sb.equals(null));
+    }
 }
