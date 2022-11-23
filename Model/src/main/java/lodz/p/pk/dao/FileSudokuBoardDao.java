@@ -21,12 +21,10 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
     @Override
     public SudokuBoard read() {
         SudokuBoard result = null;
-        try {
-            FileInputStream fis = new FileInputStream(fileName);
-            ObjectInputStream ois = new ObjectInputStream(fis);
+        try(FileInputStream fis = new FileInputStream(fileName);
+            ObjectInputStream ois = new ObjectInputStream(fis)) {
             result = (SudokuBoard) ois.readObject();
-            ois.close();
-            fis.close();
+
         } catch (IOException | ClassNotFoundException e) {
             //            System.out.println("Trouble reading from the file: " + e.getMessage());
             throw new RuntimeException(e);
@@ -38,12 +36,9 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
 
     @Override
     public void write(SudokuBoard obj) {
-        try {
-            FileOutputStream fos = new FileOutputStream(fileName);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
+        try(FileOutputStream fos = new FileOutputStream(fileName);
+            ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(obj);
-            oos.close();
-            fos.close();
         } catch (IOException e) {
             //            System.out.println("Trouble writing to the file: " + e.getMessage());
             throw new RuntimeException(e);

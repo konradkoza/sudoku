@@ -109,6 +109,8 @@ public class SudokuBoard implements Serializable {
         return Objects.equal(sudokuSolver, that.sudokuSolver) && Objects.equal(board, that.board);
     }
 
+
+
     @Override
     public int hashCode() {
         return Objects.hashCode(sudokuSolver, board);

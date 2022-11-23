@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
         SudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
         SudokuBoard sb = new SudokuBoard(sudokuSolver);
+
         SudokuBoardDaoFactory daoFactory = new SudokuBoardDaoFactory();
         Dao<SudokuBoard> dao = daoFactory.getFileDao("file");
 
