@@ -2,7 +2,6 @@ package lodz.p.pk.sudoku;
 
 
 import lodz.p.pk.dao.Dao;
-import lodz.p.pk.dao.FileSudokuBoardDao;
 import lodz.p.pk.dao.SudokuBoardDaoFactory;
 
 public class Main {
@@ -10,7 +9,7 @@ public class Main {
         SudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
         SudokuBoard sb = new SudokuBoard(sudokuSolver);
         SudokuBoardDaoFactory daoFactory = new SudokuBoardDaoFactory();
-        Dao<SudokuBoard> dao = daoFactory.getFileDao("xyz");
+        Dao<SudokuBoard> dao = daoFactory.getFileDao("file");
 
         dao.write(sb);
 
