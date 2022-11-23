@@ -75,7 +75,7 @@ class SudokuBoardTest {
         SudokuBoard sb3 = new SudokuBoard(sudokuSolver2);
 
         assertTrue(sb.equals(sb2));
-        assertFalse(sb.equals(sb3));
+        assertTrue(sb.equals(sb3));
 
         sb.solveGame();
         sb2.solveGame();

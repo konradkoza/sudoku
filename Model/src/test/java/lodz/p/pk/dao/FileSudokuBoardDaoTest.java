@@ -13,11 +13,13 @@ class FileSudokuBoardDaoTest {
         BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard board = new SudokuBoard(solver);
         Dao<SudokuBoard> fileDao;
-        board.solveGame();
+        assertTrue(SudokuBoardDaoFactory.getFileDao("file") instanceof FileSudokuBoardDao);
         fileDao = SudokuBoardDaoFactory.getFileDao("file");
+
         fileDao.write(board);
         SudokuBoard board2 = fileDao.read();
         assertTrue(board.equals(board2));
+
 
     }
 

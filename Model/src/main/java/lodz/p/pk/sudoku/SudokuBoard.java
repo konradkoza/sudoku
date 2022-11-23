@@ -106,10 +106,8 @@ public class SudokuBoard implements Serializable {
             return false;
         }
         SudokuBoard that = (SudokuBoard) o;
-        return Objects.equal(sudokuSolver, that.sudokuSolver) && Objects.equal(board, that.board);
+        return Objects.equal(board, that.board);
     }
-
-
 
     @Override
     public int hashCode() {

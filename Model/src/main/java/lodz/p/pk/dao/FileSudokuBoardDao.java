@@ -21,7 +21,7 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
     @Override
     public SudokuBoard read() {
         SudokuBoard result = null;
-        try(FileInputStream fis = new FileInputStream(fileName);
+        try (FileInputStream fis = new FileInputStream(fileName);
             ObjectInputStream ois = new ObjectInputStream(fis)) {
             result = (SudokuBoard) ois.readObject();
 
@@ -36,7 +36,7 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
 
     @Override
     public void write(SudokuBoard obj) {
-        try(FileOutputStream fos = new FileOutputStream(fileName);
+        try (FileOutputStream fos = new FileOutputStream(fileName);
             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
             oos.writeObject(obj);
         } catch (IOException e) {
