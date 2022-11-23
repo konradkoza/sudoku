@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pl"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BacktrackingSudokuSolver.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Archetype - Sudoku</a> &gt; <a href="index.source.html" class="el_package">lodz.p.pk.sudoku</a> &gt; <span class="el_source">BacktrackingSudokuSolver.java</span></div><h1>BacktrackingSudokuSolver.java</h1><pre class="source lang-java linenums">package lodz.p.pk.sudoku;
+
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+<span class="fc" id="L8">public class BacktrackingSudokuSolver implements SudokuSolver {</span>
+
+
+    public boolean fillBoard(SudokuBoard sudokuBoard) {
+<span class="fc bfc" id="L12" title="All 2 branches covered.">        for (int row = 0; row &lt; 9; row++) {</span>
+<span class="fc bfc" id="L13" title="All 2 branches covered.">            for (int column = 0; column &lt; 9; column++) {</span>
+<span class="fc bfc" id="L14" title="All 2 branches covered.">                if (sudokuBoard.getField(row, column) == 0) {</span>
+<span class="fc bfc" id="L15" title="All 2 branches covered.">                    for (int numberToTry = 1; numberToTry &lt;= 9; numberToTry++) {</span>
+<span class="fc bfc" id="L16" title="All 2 branches covered.">                        if (checkConditions(column, row, numberToTry, sudokuBoard)) {</span>
+<span class="fc" id="L17">                            sudokuBoard.setField(row, column, numberToTry);</span>
+<span class="fc bfc" id="L18" title="All 2 branches covered.">                            if (fillBoard(sudokuBoard)) {</span>
+<span class="fc" id="L19">                                return true;</span>
+                            } else {
+<span class="fc" id="L21">                                sudokuBoard.setField(row, column, 0);</span>
+                            }
+                        }
+                    }
+<span class="fc" id="L25">                    return false;</span>
+                }
+            }
+        }
+<span class="fc" id="L29">        return true;</span>
+
+    }
+
+    @Override
+    public void solve(SudokuBoard sudokuBoard) {
+<span class="fc" id="L35">        initFirstRow(sudokuBoard);</span>
+<span class="fc" id="L36">        fillBoard(sudokuBoard);</span>
+
+<span class="fc" id="L38">    }</span>
+
+    private void initFirstRow(SudokuBoard sudokuBoard) {
+<span class="fc" id="L41">        List&lt;Integer&gt; randIntegers = Arrays.asList(new Integer[9]);</span>
+<span class="fc bfc" id="L42" title="All 2 branches covered.">        for (int i = 1; i &lt;= 9; i++) {</span>
+<span class="fc" id="L43">            randIntegers.set(i - 1, i);</span>
+        }
+<span class="fc" id="L45">        Collections.shuffle(randIntegers);</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">        for (int i = 0; i &lt; 9; i++) {</span>
+<span class="fc" id="L47">            sudokuBoard.setField(0, i, randIntegers.get(i));</span>
+        }
+<span class="fc" id="L49">    }</span>
+
+    private boolean checkRow(int row, int number, SudokuBoard sudokuBoard) {
+<span class="fc bfc" id="L52" title="All 2 branches covered.">        for (int i = 0; i &lt; 9; i++) {</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">            if (sudokuBoard.getField(row, i) == number) {</span>
+<span class="fc" id="L54">                return false;</span>
+            }
+        }
+<span class="fc" id="L57">        return true;</span>
+    }
+
+    private boolean checkColumn(int column, int number, SudokuBoard sudokuBoard) {
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        for (int i = 0; i &lt; 9; i++) {</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">            if (sudokuBoard.getField(i, column) == number) {</span>
+<span class="fc" id="L63">                return false;</span>
+            }
+        }
+<span class="fc" id="L66">        return true;</span>
+    }
+
+    private boolean checkSquare(int column, int row, int number, SudokuBoard sudokuBoard) {
+<span class="fc" id="L70">        int firstColumn = column - column % 3;</span>
+<span class="fc" id="L71">        int firstRow = row - row % 3;</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">        for (int i = 0; i &lt; 3; i++) {</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">            for (int j = 0; j &lt; 3; j++) {</span>
+<span class="fc bfc" id="L74" title="All 2 branches covered.">                if (sudokuBoard.getField(i + firstRow, j + firstColumn) == number) {</span>
+<span class="fc" id="L75">                    return false;</span>
+                }
+            }
+        }
+<span class="fc" id="L79">        return true;</span>
+    }
+
+    private boolean checkConditions(int column, int row, int number, SudokuBoard sudokuBoard) {
+<span class="fc bfc" id="L83" title="All 4 branches covered.">        return checkRow(row, number, sudokuBoard) &amp;&amp; checkColumn(column, number, sudokuBoard)</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">                &amp;&amp; checkSquare(column, row, number, sudokuBoard);</span>
+    }
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
