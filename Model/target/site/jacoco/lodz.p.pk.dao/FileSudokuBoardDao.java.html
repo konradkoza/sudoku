@@ -10,7 +10,7 @@ import lodz.p.pk.sudoku.SudokuBoard;
 
 
 
-public class FileSudokuBoardDao implements Dao&lt;SudokuBoard&gt; {
+public class FileSudokuBoardDao implements Dao&lt;SudokuBoard&gt;, AutoCloseable {
 
     private String fileName;
 
@@ -28,27 +28,31 @@ public class FileSudokuBoardDao implements Dao&lt;SudokuBoard&gt; {
 <span class="nc" id="L28">            ois.close();</span>
 <span class="nc" id="L29">            fis.close();</span>
 <span class="nc" id="L30">        } catch (IOException | ClassNotFoundException e) {</span>
-<span class="nc" id="L31">            throw new RuntimeException(e);</span>
-<span class="nc" id="L32">        }</span>
+            //            System.out.println(&quot;Trouble reading from the file: &quot; + e.getMessage());
+<span class="nc" id="L32">            throw new RuntimeException(e);</span>
 
-<span class="nc" id="L34">        return result;</span>
+<span class="nc" id="L34">        }</span>
+
+<span class="nc" id="L36">        return result;</span>
     }
 
     @Override
     public void write(SudokuBoard obj) {
         try {
-<span class="nc" id="L40">            FileOutputStream fos = new FileOutputStream(fileName);</span>
-<span class="nc" id="L41">            ObjectOutputStream oos = new ObjectOutputStream(fos);</span>
-<span class="nc" id="L42">            oos.writeObject(obj);</span>
-<span class="nc" id="L43">            oos.close();</span>
-<span class="nc" id="L44">            fos.close();</span>
-<span class="nc" id="L45">        } catch (IOException e) {</span>
-<span class="nc" id="L46">            throw new RuntimeException(e);</span>
-<span class="nc" id="L47">        }</span>
-<span class="nc" id="L48">    }</span>
+<span class="nc" id="L42">            FileOutputStream fos = new FileOutputStream(fileName);</span>
+<span class="nc" id="L43">            ObjectOutputStream oos = new ObjectOutputStream(fos);</span>
+<span class="nc" id="L44">            oos.writeObject(obj);</span>
+<span class="nc" id="L45">            oos.close();</span>
+<span class="nc" id="L46">            fos.close();</span>
+<span class="nc" id="L47">        } catch (IOException e) {</span>
+            //            System.out.println(&quot;Trouble writing to the file: &quot; + e.getMessage());
+<span class="nc" id="L49">            throw new RuntimeException(e);</span>
+
+<span class="nc" id="L51">        }</span>
+<span class="nc" id="L52">    }</span>
 
     @Override
     public void close(){
-<span class="nc" id="L52">    }</span>
+<span class="nc" id="L56">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

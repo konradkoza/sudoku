@@ -10,7 +10,7 @@ import lodz.p.pk.sudoku.SudokuBoard;
 
 
 
-public class FileSudokuBoardDao implements Dao<SudokuBoard> {
+public class FileSudokuBoardDao implements Dao<SudokuBoard>, AutoCloseable {
 
     private String fileName;
 
@@ -28,7 +28,9 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
             ois.close();
             fis.close();
         } catch (IOException | ClassNotFoundException e) {
+            //            System.out.println("Trouble reading from the file: " + e.getMessage());
             throw new RuntimeException(e);
+
         }
 
         return result;
@@ -43,7 +45,9 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
             oos.close();
             fos.close();
         } catch (IOException e) {
+            //            System.out.println("Trouble writing to the file: " + e.getMessage());
             throw new RuntimeException(e);
+
         }
     }
 

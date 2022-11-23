@@ -1,10 +1,11 @@
-#Wed Nov 23 18:08:09 CET 2022
-C\:\\Users\\Konrad\\Desktop\\semestr\ 3\\kompo\\Sudoku\\Model\\src\\main\\java\\lodz\\p\\pk\\dao\\Dao.java=1669223145037
-C\:\\Users\\Konrad\\Desktop\\semestr\ 3\\kompo\\Sudoku\\Model\\src\\main\\java\\lodz\\p\\pk\\dao\\FileSudokuBoardDao.java=1669223281672
+#Wed Nov 23 18:38:22 CET 2022
+C\:\\Users\\Konrad\\Desktop\\semestr\ 3\\kompo\\Sudoku\\Model\\src\\main\\java\\lodz\\p\\pk\\dao\\Dao.java=1669224285969
+C\:\\Users\\Konrad\\Desktop\\semestr\ 3\\kompo\\Sudoku\\Model\\src\\main\\java\\lodz\\p\\pk\\dao\\FileSudokuBoardDao.java=1669225094621
+C\:\\Users\\Konrad\\Desktop\\semestr\ 3\\kompo\\Sudoku\\Model\\src\\main\\java\\lodz\\p\\pk\\dao\\SudokuBoardDaoFactory.java=1669225094637
 C\:\\Users\\Konrad\\Desktop\\semestr\ 3\\kompo\\Sudoku\\Model\\src\\main\\java\\lodz\\p\\pk\\sudoku\\BacktrackingSudokuSolver.java=1669223015080
 C\:\\Users\\Konrad\\Desktop\\semestr\ 3\\kompo\\Sudoku\\Model\\src\\main\\java\\lodz\\p\\pk\\sudoku\\Dao.java=1669219555940
 C\:\\Users\\Konrad\\Desktop\\semestr\ 3\\kompo\\Sudoku\\Model\\src\\main\\java\\lodz\\p\\pk\\sudoku\\FileSudokuBoardDao.java=1669219800954
-C\:\\Users\\Konrad\\Desktop\\semestr\ 3\\kompo\\Sudoku\\Model\\src\\main\\java\\lodz\\p\\pk\\sudoku\\Main.java=1669222996935
+C\:\\Users\\Konrad\\Desktop\\semestr\ 3\\kompo\\Sudoku\\Model\\src\\main\\java\\lodz\\p\\pk\\sudoku\\Main.java=1669224342426
 C\:\\Users\\Konrad\\Desktop\\semestr\ 3\\kompo\\Sudoku\\Model\\src\\main\\java\\lodz\\p\\pk\\sudoku\\Observer.java=1667469461154
 C\:\\Users\\Konrad\\Desktop\\semestr\ 3\\kompo\\Sudoku\\Model\\src\\main\\java\\lodz\\p\\pk\\sudoku\\SudokuBoard.java=1669223145019
 C\:\\Users\\Konrad\\Desktop\\semestr\ 3\\kompo\\Sudoku\\Model\\src\\main\\java\\lodz\\p\\pk\\sudoku\\SudokuBox.java=1667939231871
