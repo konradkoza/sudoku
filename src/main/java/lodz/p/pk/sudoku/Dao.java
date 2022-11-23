@@ -1,6 +1,6 @@
 package lodz.p.pk.sudoku;
 
-public interface Dao <T>{
+public interface Dao<T> {
 
     T read();
 

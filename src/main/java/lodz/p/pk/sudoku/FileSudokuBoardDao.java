@@ -1,10 +1,16 @@
 package lodz.p.pk.sudoku;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class FileSudokuBoardDao implements Dao<SudokuBoard> {
+
     private String fileName;
-    public FileSudokuBoardDao(String fileName){
+
+    public FileSudokuBoardDao(String fileName) {
         this.fileName = fileName;
     }
 
