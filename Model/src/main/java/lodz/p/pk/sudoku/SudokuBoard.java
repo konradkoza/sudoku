@@ -1,9 +1,10 @@
 package lodz.p.pk.sudoku;
 
-import java.io.Serializable;
+
 import com.google.common.base.Objects;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 

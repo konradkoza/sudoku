@@ -1,6 +1,7 @@
 package lodz.p.pk.sudoku;
 
 import java.io.Serializable;
+
 public class SudokuField implements Serializable {
     private int value;
 

@@ -1,13 +1,14 @@
 package lodz.p.pk.dao;
 
-
-import lodz.p.pk.sudoku.SudokuBoard;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import lodz.p.pk.sudoku.SudokuBoard;
+
+
+
 
 public class FileSudokuBoardDao implements Dao<SudokuBoard> {
 
@@ -45,6 +46,7 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
             throw new RuntimeException(e);
         }
     }
+
     @Override
     public void close(){
     }

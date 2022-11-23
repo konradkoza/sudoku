@@ -1,11 +1,11 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Archetype - Sudoku,lodz.p.pk.dao,FileSudokuBoardDao,63,0,0,0,23,0,4,0,4,0
 Archetype - Sudoku,lodz.p.pk.sudoku,SudokuBoard,0,283,0,30,0,45,0,27,0,12
 Archetype - Sudoku,lodz.p.pk.sudoku,SudokuColumn,0,4,0,0,0,2,0,1,0,1
-Archetype - Sudoku,lodz.p.pk.sudoku,Main,39,0,4,0,9,0,4,0,2,0
+Archetype - Sudoku,lodz.p.pk.sudoku,Main,77,0,8,0,17,0,6,0,2,0
 Archetype - Sudoku,lodz.p.pk.sudoku,BacktrackingSudokuSolver,0,199,0,36,0,39,0,26,0,8
 Archetype - Sudoku,lodz.p.pk.sudoku,Observer,0,20,0,0,0,7,0,4,0,4
 Archetype - Sudoku,lodz.p.pk.sudoku,SudokuElement,0,76,0,12,0,16,0,11,0,5
 Archetype - Sudoku,lodz.p.pk.sudoku,SudokuField,0,53,0,8,0,14,0,10,0,6
 Archetype - Sudoku,lodz.p.pk.sudoku,SudokuBox,0,4,0,0,0,2,0,1,0,1
-Archetype - Sudoku,lodz.p.pk.sudoku,FileSudokuBoardDao,62,0,0,0,22,0,3,0,3,0
 Archetype - Sudoku,lodz.p.pk.sudoku,SudokuRow,0,4,0,0,0,2,0,1,0,1
