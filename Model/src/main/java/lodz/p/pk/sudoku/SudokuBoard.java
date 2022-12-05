@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class SudokuBoard implements Serializable {
+public class SudokuBoard implements Serializable, Cloneable{
 
 
     private final SudokuSolver sudokuSolver;
@@ -97,6 +97,8 @@ public class SudokuBoard implements Serializable {
                 + '}';
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -111,7 +113,18 @@ public class SudokuBoard implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(sudokuSolver, board);
+        return Objects.hashCode(board);
+    }
+
+    @Override
+    public SudokuBoard clone() {
+        SudokuBoard sbClone = new SudokuBoard(sudokuSolver);
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                sbClone.setField(i, j, this.getField(i, j));
+            }
+        }
+        return sbClone;
     }
 }
 
