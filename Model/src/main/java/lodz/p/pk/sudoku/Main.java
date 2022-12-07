@@ -19,6 +19,7 @@ public class Main {
         }
         System.out.print("\n");
         SudokuBoard sb2 = sb.clone();
+        sb2.getBox(2, 1).clone().getFields().add(new SudokuField());
 
 
             for (int i = 0; i < 9; i++) {

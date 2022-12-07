@@ -1,9 +1,10 @@
 package lodz.p.pk.sudoku;
 
 import com.google.common.base.Objects;
+import java.util.ArrayList;
 import java.util.List;
 
-abstract class SudokuElement implements Cloneable {
+abstract class SudokuElement {
 
     private final List<SudokuField> fields;
 
@@ -20,6 +21,10 @@ abstract class SudokuElement implements Cloneable {
             }
         }
         return true;
+    }
+
+    public List<SudokuField> getFields() {
+        return new ArrayList<SudokuField>(fields);
     }
 
     @Override
@@ -46,12 +51,5 @@ abstract class SudokuElement implements Cloneable {
         return Objects.hashCode(fields);
     }
 
-    @Override
-    public SudokuElement clone() {
-        try {
-            return (SudokuElement) super.clone();
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
-        }
-    }
+
 }

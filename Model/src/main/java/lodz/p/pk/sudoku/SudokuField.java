@@ -9,6 +9,10 @@ public class SudokuField implements Serializable, Comparable<SudokuField>, Clone
         this.value = 0;
     }
 
+    public SudokuField(int value) {
+        this.value = value;
+    }
+
     public int getValue() {
         return value;
     }
@@ -43,7 +47,7 @@ public class SudokuField implements Serializable, Comparable<SudokuField>, Clone
 
     @Override
     public int compareTo(SudokuField o) {
-        if(o == null){
+        if (o == null) {
             throw new NullPointerException();
         }
         return Integer.compare(this.value, o.getValue());

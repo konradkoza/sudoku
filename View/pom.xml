@@ -4,8 +4,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>pl.comp</groupId>
-    <artifactId>ViewProject</artifactId>
-    <version>2.0-SNAPSHOT</version>
+    <artifactId>View</artifactId>
+    <version>2.0</version>
     <parent>
         <groupId>pl.comp</groupId>
         <artifactId>SudokuGameProject</artifactId>
@@ -39,6 +39,11 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>pl.comp</groupId>
+            <artifactId>Model</artifactId>
+            <version>2.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -61,7 +66,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>pl.comp.viewproject/pl.comp.view.HelloApplication</mainClass>
+                            <mainClass>pl.comp.viewproject/lodz.p.pk.view.Application</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

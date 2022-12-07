@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
-public class SudokuBoard implements Serializable, Cloneable{
+public class SudokuBoard implements Serializable, Cloneable {
 
 
     private final SudokuSolver sudokuSolver;
