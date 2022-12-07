@@ -20,24 +20,24 @@ public class DifficultySelectController {
     private CheckBox checkBoxMedium;
 
     @FXML
-    private void handleEasyBox(){
-        if(checkBoxEasy.isSelected()){
+    private void handleEasyBox() {
+        if (checkBoxEasy.isSelected()) {
             checkBoxHard.setSelected(false);
             checkBoxMedium.setSelected(false);
         }
     }
 
     @FXML
-    private void handleMediumBox(){
-        if(checkBoxMedium.isSelected()){
+    private void handleMediumBox() {
+        if (checkBoxMedium.isSelected()) {
             checkBoxHard.setSelected(false);
             checkBoxEasy.setSelected(false);
         }
     }
 
     @FXML
-    private void handleHardBox(){
-        if(checkBoxHard.isSelected()){
+    private void handleHardBox() {
+        if (checkBoxHard.isSelected()) {
             checkBoxEasy.setSelected(false);
             checkBoxMedium.setSelected(false);
         }

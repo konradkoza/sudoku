@@ -1,10 +1,10 @@
 package pl.comp.view;
 
-import lodz.p.pk.sudoku.SudokuBoard;
 
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+import lodz.p.pk.sudoku.SudokuBoard;
 
 public enum DifficultyLevel {
     
@@ -21,7 +21,7 @@ public enum DifficultyLevel {
     }
 
     private void numbersToRemove() {
-        Random rng =new Random();
+        Random rng = new Random();
         for (int i = 0; i < numberFields; i++) {
             boolean isAdded = false;
             while (!isAdded) {
@@ -32,7 +32,7 @@ public enum DifficultyLevel {
         }
     }
 
-    public void deleteFields(SudokuBoard board){
+    public void deleteFields(SudokuBoard board) {
         for (int i = 0; i < numberFields; i++) {
             board.setField(i % 9, (int)(i / 9), 0);
         }
