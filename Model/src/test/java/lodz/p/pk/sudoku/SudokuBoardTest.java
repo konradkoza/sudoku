@@ -89,7 +89,15 @@ class SudokuBoardTest {
 
         assertFalse(sb.equals(sb2));
         assertFalse(sb.equals(sb3));
+    }
 
-
+    @Test
+    void isCloneable() {
+        SudokuSolver sudokuSolver = new BacktrackingSudokuSolver();
+        SudokuBoard sb = new SudokuBoard(sudokuSolver);
+        SudokuBoard sbClone = sb.clone();
+        assertEquals(sb, sbClone);
+        sbClone.solveGame();
+        assertNotEquals(sb, sbClone);
     }
 }
