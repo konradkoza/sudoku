@@ -1,5 +1,7 @@
 package pl.comp.view;
 
+import lodz.p.pk.sudoku.SudokuBoard;
+
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -27,6 +29,12 @@ public enum DifficultyLevel {
                 isAdded = numbers.add(random);
             }
             
+        }
+    }
+
+    public void deleteFields(SudokuBoard board){
+        for (int i = 0; i < numberFields; i++) {
+            board.setField(i % 9, (int)(i / 9), 0);
         }
     }
 
