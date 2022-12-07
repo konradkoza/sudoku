@@ -11,7 +11,6 @@
    To completely disable a check, just comment it out or delete it from the file.
    Authors: Max Vetrenko, Ruslan Diachenko, Roman Ivanov.
 -->
-
 <module name = "Checker">
     <property name="charset" value="UTF-8"/>
 
@@ -23,7 +22,6 @@
     <module name="FileTabCharacter">
         <property name="eachLine" value="true"/>
     </module>
-
     <module name="LineLength">
         <property name="max" value="100"/>
         <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>

@@ -1,9 +1,8 @@
 package pl.comp.view;
 
 
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
+
 import lodz.p.pk.sudoku.SudokuBoard;
 
 public enum DifficultyLevel {
@@ -13,8 +12,7 @@ public enum DifficultyLevel {
     HARD(60);
 
     private int numberFields;
-
-    private Set<Integer> numbers = new HashSet<>();
+    private List<Integer> numbersList = new ArrayList<Integer>();
 
     DifficultyLevel(int numberFields) {
         this.numberFields = numberFields;
@@ -26,15 +24,19 @@ public enum DifficultyLevel {
             boolean isAdded = false;
             while (!isAdded) {
                 int random = rng.nextInt(81);
-                isAdded = numbers.add(random);
+                isAdded = numbersList.contains(random);
+                if(!isAdded) {
+                    numbersList.set(i, random);
+                }
+
             }
             
         }
     }
 
-    public void deleteFields(SudokuBoard board) {
+    public void deleteFields(SudokuBoard board){
         for (int i = 0; i < numberFields; i++) {
-            board.setField(i % 9, (int)(i / 9), 0);
+            board.setField(numbersList.get(i) % 9, (int)(numbersList.get(i) / 9), 0);
         }
     }
 
