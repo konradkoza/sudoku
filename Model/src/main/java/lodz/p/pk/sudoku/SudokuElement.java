@@ -1,7 +1,7 @@
 package lodz.p.pk.sudoku;
 
 import com.google.common.base.Objects;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 abstract class SudokuElement {
@@ -23,8 +23,12 @@ abstract class SudokuElement {
         return true;
     }
 
-    public List<SudokuField> getFields() {
-        return new ArrayList<SudokuField>(fields);
+    protected List<SudokuField> getFields() {
+        List<SudokuField> sudokuFields = Arrays.asList(new SudokuField[9]);
+        for (int i = 0; i < 9; i++) {
+            sudokuFields.set(i, fields.get(i).clone());
+        }
+        return sudokuFields;
     }
 
     @Override

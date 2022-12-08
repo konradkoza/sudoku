@@ -12,11 +12,13 @@ public class SudokuRowTest {
 
     @Test
     void isCloneable() {
-        final List<SudokuField> elements = Arrays.asList(new SudokuField[9]);
-        SudokuRow sr = new SudokuRow(elements);
-        SudokuRow srClone = sr.clone();
-        assertEquals(sr, srClone);
-        srClone = null;
-        assertNotEquals(sr, srClone);
+        SudokuSolver ss = new BacktrackingSudokuSolver();
+        SudokuBoard sb = new SudokuBoard(ss);
+        sb.solveGame();
+        SudokuRow srow = sb.getRow(1);
+        SudokuRow srowClone = srow.clone();
+        assertEquals(srow, srowClone);
+        sb.setField(1,1, 0);
+        assertNotEquals(srow, srowClone);
     }
 }

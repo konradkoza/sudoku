@@ -1,6 +1,7 @@
 package lodz.p.pk.sudoku;
 
 
+
 import java.util.List;
 
 public class SudokuRow extends SudokuElement implements Cloneable {
@@ -11,6 +12,7 @@ public class SudokuRow extends SudokuElement implements Cloneable {
 
     @Override
     public SudokuRow clone() {
+
         return new SudokuRow(getFields());
     }
 }
