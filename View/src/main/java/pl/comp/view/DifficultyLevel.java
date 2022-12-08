@@ -1,9 +1,10 @@
 package pl.comp.view;
 
-
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import lodz.p.pk.sudoku.SudokuBoard;
+
 
 public enum DifficultyLevel {
     
@@ -25,16 +26,14 @@ public enum DifficultyLevel {
             while (!isAdded) {
                 int random = rng.nextInt(81);
                 isAdded = numbersList.contains(random);
-                if(!isAdded) {
+                if (!isAdded) {
                     numbersList.set(i, random);
                 }
-
             }
-            
         }
     }
 
-    public void deleteFields(SudokuBoard board){
+    public void deleteFields(SudokuBoard board) {
         for (int i = 0; i < numberFields; i++) {
             board.setField(numbersList.get(i) % 9, (int)(numbersList.get(i) / 9), 0);
         }
