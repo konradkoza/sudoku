@@ -53,8 +53,6 @@ public class DifficultySelectController {
 
     @FXML
     void startGame(ActionEvent event) throws IOException {
-
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SudokuBoard.fxml"));
 
         Parent root = loader.load();
@@ -67,14 +65,5 @@ public class DifficultySelectController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
-
-
-
-
     }
-
-
-
-
 }
