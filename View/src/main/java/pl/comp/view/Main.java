@@ -17,10 +17,12 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
+            StageManager.setStage(primaryStage);
             Parent root = FXMLLoader.load(getClass().getResource("DifficultyLevel.fxml"));
             Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            primaryStage.setTitle("Sudoku Game");
+            StageManager.setScene(scene);
+            StageManager.showStage();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

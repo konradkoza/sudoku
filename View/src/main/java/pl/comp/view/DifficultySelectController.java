@@ -53,20 +53,16 @@ public class DifficultySelectController {
 
     @FXML
     void startGame(ActionEvent event) throws IOException {
+
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SudokuBoard.fxml"));
 
-
-        SudokuBoardController sudokuBoardController = new SudokuBoardController();
-        loader.setController(sudokuBoardController);
-        //sudokuBoardController.fillBoard(chosenLevel);
         Parent root = loader.load();
-        //        SudokuBoardController sudokuBoardController = loader.getController();
 
-
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+
+        StageManager.setScene(scene);
+        StageManager.showStage();
 
         //        SceneManager sceneManager = new SceneManager();
         //        sceneManager.switchToSudokuBoard(event);

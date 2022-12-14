@@ -27,13 +27,14 @@ public enum DifficultyLevel {
                 int random = rng.nextInt(81);
                 isAdded = numbersList.contains(random);
                 if (!isAdded) {
-                    numbersList.set(i, random);
+                    numbersList.add(i, random);
                 }
             }
         }
     }
 
     public void deleteFields(SudokuBoard board) {
+        numbersToRemove();
         for (int i = 0; i < numberFields; i++) {
             board.setField(numbersList.get(i) % 9, (int)(numbersList.get(i) / 9), 0);
         }
