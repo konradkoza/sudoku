@@ -44,7 +44,6 @@ public class SudokuBoardController {
             System.out.print("\n");
         }
 
-
     }
 
 
