@@ -58,14 +58,20 @@ public class DifficultySelectController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SudokuBoard.fxml"));
 
         Parent root = loader.load();
+        SudokuBoardController sudokuBoardController = loader.getController();
+        sudokuBoardController.setDiffLevel(chosenLevel);
+
+
+        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
         Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
 
-        StageManager.setScene(scene);
-        StageManager.showStage();
 
-        //        SceneManager sceneManager = new SceneManager();
-        //        sceneManager.switchToSudokuBoard(event);
+
+
+
     }
 
 

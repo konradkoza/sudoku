@@ -36,7 +36,13 @@ public class SudokuBoardController {
         SudokuBoard board = new SudokuBoard(solver);
         board.solveGame();
         diffLevel.deleteFields(board);
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                System.out.print(board.getField(i,j));
 
+            }
+            System.out.print("\n");
+        }
 
 
     }
