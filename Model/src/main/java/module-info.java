@@ -6,4 +6,5 @@ module pl.comp {
     opens lodz.p.pk.sudoku;
 
     exports lodz.p.pk.sudoku;
+    exports lodz.p.pk.dao;
 }
