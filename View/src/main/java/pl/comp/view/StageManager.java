@@ -22,11 +22,11 @@ public class StageManager {
         StageManager.stage = stage;
     }
 
-    public static void setScene(Scene scene){
-        stage.setScene(scene);
-    }
 
-    public static void showStage(){
+
+    public static void showStage(Parent root){
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
         StageManager.stage.show();
     }
 

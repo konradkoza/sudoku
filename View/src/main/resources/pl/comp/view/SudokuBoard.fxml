@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.comp.view.SudokuBoardController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.comp.view.SudokuBoardController">
     <children>
         <GridPane fx:id="sudokuGrid" alignment="CENTER" gridLinesVisible="true" layoutX="92.0" layoutY="34.0" prefHeight="540.0" prefWidth="540.0">
             <columnConstraints>
@@ -36,8 +36,8 @@
       <AnchorPane layoutX="632.0" layoutY="212.0" prefHeight="238.0" prefWidth="163.0">
          <children>
             <Button fx:id="showButton" layoutX="56.0" layoutY="106.0" mnemonicParsing="false" onAction="#printBoard" text="Button" />
-            <Button fx:id="saveButton" layoutX="46.0" layoutY="166.0" mnemonicParsing="false" onAction="#saveToFile" prefHeight="26.0" prefWidth="71.0" text="Zapisz" />
-            <TextField fx:id="fileText" layoutX="8.0" layoutY="199.0" promptText="Nazwa pliku" />
+            <Button fx:id="saveButton" layoutX="46.0" layoutY="166.0" mnemonicParsing="false" onAction="#saveToFile" text="%saveGame" />
+            <TextField fx:id="fileText" layoutX="8.0" layoutY="199.0" promptText="%fileName" />
          </children>
       </AnchorPane>
     </children>

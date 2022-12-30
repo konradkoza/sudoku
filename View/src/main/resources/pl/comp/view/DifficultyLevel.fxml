@@ -7,18 +7,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="358.0" prefWidth="358.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.comp.view.DifficultySelectController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="358.0" prefWidth="358.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.comp.view.DifficultySelectController">
    <children>
-      <Label alignment="TOP_CENTER" layoutX="48.0" layoutY="25.0" prefHeight="27.0" prefWidth="261.0" text="Wybierz poziom trudności">
+      <Label alignment="TOP_CENTER" layoutX="48.0" layoutY="25.0" prefHeight="27.0" prefWidth="261.0" text="%difficultyLevel">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Button fx:id="accesptButton" layoutX="143.0" layoutY="202.0" mnemonicParsing="false" onAction="#startGame" text="Zatwierdź" />
-      <CheckBox fx:id="checkBoxMedium" layoutX="48.0" layoutY="130.0" mnemonicParsing="false" onAction="#handleMediumBox" text="Średni" />
-      <CheckBox fx:id="checkBoxHard" layoutX="49.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleHardBox" text="Trudny" />
-      <CheckBox fx:id="checkBoxEasy" layoutX="49.0" layoutY="105.0" mnemonicParsing="false" onAction="#handleEasyBox" text="Łatwy" />
-      <Button fx:id="readButton" layoutX="137.0" layoutY="263.0" mnemonicParsing="false" onAction="#readFromFile" text="Wczytaj grę" />
-      <TextField fx:id="fileText" layoutX="102.0" layoutY="297.0" promptText="Nazwa pliku" />
+      <Button fx:id="acceptButton" layoutX="138.0" layoutY="202.0" mnemonicParsing="false" onAction="#startGame" text="%StartGame" />
+      <CheckBox fx:id="checkBoxMedium" layoutX="48.0" layoutY="130.0" mnemonicParsing="false" onAction="#handleMediumBox" text="%MediumLevel" />
+      <CheckBox fx:id="checkBoxHard" layoutX="49.0" layoutY="155.0" mnemonicParsing="false" onAction="#handleHardBox" text="%HardLevel" />
+      <CheckBox fx:id="checkBoxEasy" layoutX="49.0" layoutY="105.0" mnemonicParsing="false" onAction="#handleEasyBox" text="%EasyLevel" />
+      <Button fx:id="readButton" layoutX="53.0" layoutY="316.0" mnemonicParsing="false" onAction="#readFromFile" text="%loadFromFile" />
+      <TextField fx:id="fileText" layoutX="49.0" layoutY="277.0" promptText="%fileName" />
+      <Label layoutX="244.0" layoutY="247.0" prefHeight="26.0" prefWidth="82.0" text="%language" />
+      <Button fx:id="selectPlButton" layoutX="244.0" layoutY="277.0" mnemonicParsing="false" onAction="#selectPl" text="%plButton" />
+      <Button fx:id="selectEnButton" layoutX="244.0" layoutY="316.0" mnemonicParsing="false" onAction="#selectEn" text="%enButton" />
    </children>
 </AnchorPane>

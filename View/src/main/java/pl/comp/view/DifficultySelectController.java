@@ -1,12 +1,16 @@
 package pl.comp.view;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -18,6 +22,24 @@ import lodz.p.pk.sudoku.SudokuBoard;
 public class DifficultySelectController {
 
         private DifficultyLevel chosenLevel;
+
+        private final   Locale locale_pl = new Locale.Builder()
+                .setLanguage("pl")
+                .build();
+
+        private final   Locale locale_en = new Locale.Builder()
+                .setLanguage("en")
+                .build();
+
+
+
+        ResourceBundle bundle = ResourceBundle.getBundle("pl.comp.view.LangBundle");
+
+        @FXML
+        private Button selectEnButton;
+
+        @FXML
+        private Button selectPlButton;
 
         @FXML
         private TextField fileText;
@@ -59,8 +81,8 @@ public class DifficultySelectController {
         }
 
     @FXML
-    void startGame(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("SudokuBoard.fxml"));
+    private void startGame(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SudokuBoard.fxml"), bundle);
 
         Parent root = loader.load();
         SudokuBoardController sudokuBoardController = loader.getController();
@@ -70,9 +92,7 @@ public class DifficultySelectController {
         chosenLevel.deleteFields(board);
         sudokuBoardController.initTextFields(board);
 
-        Scene scene = new Scene(root);
-        StageManager.setScene(scene);
-        StageManager.showStage();
+        StageManager.showStage(root);
     }
 
 
@@ -87,13 +107,30 @@ public class DifficultySelectController {
             throw new RuntimeException(e);
         }
         if(board != null){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("SudokuBoard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("SudokuBoard.fxml"), bundle);
             Parent root = loader.load();
             SudokuBoardController sudokuBoardController = loader.getController();
             sudokuBoardController.initTextFields(board);
-            Scene scene = new Scene(root);
-            StageManager.setScene(scene);
-            StageManager.showStage();
+            StageManager.showStage(root);
         }
     }
+
+    @FXML
+    private void selectPl(ActionEvent event) throws IOException {
+        bundle = ResourceBundle.getBundle("pl.comp.view.LangBundle",locale_pl);
+        Locale.setDefault(locale_pl);
+
+        Parent root = FXMLLoader.load(getClass().getResource("DifficultyLevel.fxml"), bundle);
+        StageManager.showStage(root);
+    }
+
+    @FXML
+    private void selectEn(ActionEvent event) throws IOException {
+        bundle = ResourceBundle.getBundle("pl.comp.view.LangBundle",locale_en);
+        Locale.setDefault(locale_en);
+        Parent root = FXMLLoader.load(getClass().getResource("DifficultyLevel.fxml"), bundle);
+        StageManager.showStage(root);
+
+    }
+
 }
