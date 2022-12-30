@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -35,6 +36,8 @@ public class DifficultySelectController {
 
         ResourceBundle bundle = ResourceBundle.getBundle("pl.comp.view.LangBundle");
 
+        ResourceBundle authors = ResourceBundle.getBundle("pl.comp.view.Authors");
+
         @FXML
         private Button selectEnButton;
 
@@ -52,6 +55,17 @@ public class DifficultySelectController {
 
         @FXML
         private CheckBox checkBoxMedium;
+
+        @FXML
+        private Button authorsButton;
+
+        @FXML
+        void displayAuthors(ActionEvent event) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(bundle.getString("authors"));
+            alert.setContentText(authors.getObject("1 ") + "\n" + authors.getObject("2 "));
+            alert.show();
+        }
 
         @FXML
         private void handleEasyBox() {

@@ -23,5 +23,6 @@
       <Label layoutX="244.0" layoutY="247.0" prefHeight="26.0" prefWidth="82.0" text="%language" />
       <Button fx:id="selectPlButton" layoutX="244.0" layoutY="277.0" mnemonicParsing="false" onAction="#selectPl" text="%plButton" />
       <Button fx:id="selectEnButton" layoutX="244.0" layoutY="316.0" mnemonicParsing="false" onAction="#selectEn" text="%enButton" />
+      <Button fx:id="authorsButton" layoutX="284.0" layoutY="26.0" mnemonicParsing="false" onAction="#displayAuthors" text="%authors" />
    </children>
 </AnchorPane>
