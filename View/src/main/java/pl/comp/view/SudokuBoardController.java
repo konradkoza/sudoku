@@ -40,15 +40,16 @@ public class SudokuBoardController {
 
     private SudokuBoard board;
 
-    private final JavaBeanIntegerProperty[][] fieldValueProperty = new JavaBeanIntegerProperty[9][9];
+    private final JavaBeanIntegerProperty[][] fieldValueProperty =
+            new JavaBeanIntegerProperty[9][9];
 
     private final StringConverter converter = new Converter();
 
-//    public void setBoard(SudokuBoard board) {
-//        this.board = board;
-//    }
+    //    public void setBoard(SudokuBoard board) {
+    //        this.board = board;
+    //    }
 
-    public void printBoard(){
+    public void printBoard() {
         solver.fillBoard(board);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -64,8 +65,8 @@ public class SudokuBoardController {
     public void initTextFields(SudokuBoard board) {
         this.board = board;
         JavaBeanIntegerPropertyBuilder builder = JavaBeanIntegerPropertyBuilder.create();
-        for(int i = 0; i < 9; i++) {
-            for(int j = 0; j < 9; j++) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
                 TextField newNumber = new TextField();
                 newNumber.setPrefWidth(60);
                 newNumber.setPrefHeight(60);
@@ -84,20 +85,23 @@ public class SudokuBoardController {
                 newNumber.textProperty().bindBidirectional(fieldValueProperty[i][j], converter);
                 newNumber.textProperty().addListener(new ChangeListener<String>() {
                     @Override
-                    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                        if(!(newValue.matches("[1-9]")|| newValue.equals(""))){
+                    public void changed(ObservableValue<? extends String> observable,
+                                        String oldValue, String newValue) {
+                        if (!(newValue.matches("[1-9]") || newValue.equals(""))) {
                             newNumber.setText(oldValue);
 
                         }
                     }
                 });
 
-//                if(newNumber.getText().matches("[1-9]")) {
-//                    newNumber.setFont(Font.font("System Regular", FontWeight.LIGHT, 12));
-//                    Paint bgColor = Paint.valueOf("EEEEEE");
-//                    newNumber.setStyle("-fx-control-inner-background: #"+bgColor.toString().substring(2));
-//                    newNumber.setEditable(false);
-//                }
+                //                if(newNumber.getText().matches("[1-9]")) {
+                //                    newNumber.setFont(Font.font("System Regular",
+                //                    FontWeight.LIGHT, 12));
+                //                    Paint bgColor = Paint.valueOf("EEEEEE");
+                //                    newNumber.setStyle("-fx-control-inner-background: #"+bgColor
+                //                    .toString().substring(2));
+                //                    newNumber.setEditable(false);
+                //                }
                 if (board.getField(i, j) == 0) {
                     newNumber.clear();
                 }
@@ -108,9 +112,9 @@ public class SudokuBoardController {
     }
 
     @FXML
-    public void saveToFile(ActionEvent event){
+    public void saveToFile(ActionEvent event) {
         String fileName = fileText.getText();
-        try (Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getFileDao(fileName)){
+        try (Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getFileDao(fileName)) {
             dao.write(board);
 
         } catch (Exception e) {
@@ -121,15 +125,15 @@ public class SudokuBoardController {
     public void initialize() {
 
 
-//        board.solveGame();
-//        diffLevel.deleteFields(board);
-//        for (int i = 0; i < 9; i++) {
-//            for (int j = 0; j < 9; j++) {
-//                System.out.print(board.getField(i,j));
-//            }
-//            System.out.print("\n");
-//        }
+    //        board.solveGame();
+    //        diffLevel.deleteFields(board);
+    //        for (int i = 0; i < 9; i++) {
+    //            for (int j = 0; j < 9; j++) {
+    //                System.out.print(board.getField(i,j));
+    //            }
+    //            System.out.print("\n");
+    //        }
 
-//        initTextFields(board);
+    //        initTextFields(board);
     }
 }

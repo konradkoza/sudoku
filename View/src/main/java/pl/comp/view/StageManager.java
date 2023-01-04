@@ -18,13 +18,13 @@ public class StageManager {
         return stage;
     }
 
-    public static void setStage(Stage stage){
+    public static void setStage(Stage stage) {
         StageManager.stage = stage;
     }
 
 
 
-    public static void showStage(Parent root){
+    public static void showStage(Parent root) {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         StageManager.stage.show();

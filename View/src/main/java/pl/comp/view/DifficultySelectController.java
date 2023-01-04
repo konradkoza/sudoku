@@ -3,18 +3,14 @@ package pl.comp.view;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import lodz.p.pk.dao.Dao;
 import lodz.p.pk.dao.SudokuBoardDaoFactory;
 import lodz.p.pk.sudoku.BacktrackingSudokuSolver;
@@ -24,11 +20,11 @@ public class DifficultySelectController {
 
         private DifficultyLevel chosenLevel;
 
-        private final   Locale locale_pl = new Locale.Builder()
+        private final   Locale localePL = new Locale.Builder()
                 .setLanguage("pl")
                 .build();
 
-        private final   Locale locale_en = new Locale.Builder()
+        private final   Locale localeEN = new Locale.Builder()
                 .setLanguage("en")
                 .build();
 
@@ -98,29 +94,29 @@ public class DifficultySelectController {
     private void startGame(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SudokuBoard.fxml"), bundle);
 
-        Parent root = loader.load();
+
         SudokuBoardController sudokuBoardController = loader.getController();
         BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard board = new SudokuBoard(solver);
         board.solveGame();
         chosenLevel.deleteFields(board);
         sudokuBoardController.initTextFields(board);
-
+        Parent root = loader.load();
         StageManager.showStage(root);
     }
 
 
     @FXML
-    private void readFromFile(ActionEvent event) throws IOException{
+    private void readFromFile(ActionEvent event) throws IOException {
         String fileName = fileText.getText();
         SudokuBoard board;
 
-        try(Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getFileDao(fileName)){
+        try (Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getFileDao(fileName)) {
             board = dao.read();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        if(board != null){
+        if (board != null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("SudokuBoard.fxml"), bundle);
             Parent root = loader.load();
             SudokuBoardController sudokuBoardController = loader.getController();
@@ -131,8 +127,8 @@ public class DifficultySelectController {
 
     @FXML
     private void selectPl(ActionEvent event) throws IOException {
-        bundle = ResourceBundle.getBundle("pl.comp.view.LangBundle",locale_pl);
-        Locale.setDefault(locale_pl);
+        bundle = ResourceBundle.getBundle("pl.comp.view.LangBundle", localePL);
+        Locale.setDefault(localePL);
 
         Parent root = FXMLLoader.load(getClass().getResource("DifficultyLevel.fxml"), bundle);
         StageManager.showStage(root);
@@ -140,8 +136,8 @@ public class DifficultySelectController {
 
     @FXML
     private void selectEn(ActionEvent event) throws IOException {
-        bundle = ResourceBundle.getBundle("pl.comp.view.LangBundle",locale_en);
-        Locale.setDefault(locale_en);
+        bundle = ResourceBundle.getBundle("pl.comp.view.LangBundle", localeEN);
+        Locale.setDefault(localeEN);
         Parent root = FXMLLoader.load(getClass().getResource("DifficultyLevel.fxml"), bundle);
         StageManager.showStage(root);
 

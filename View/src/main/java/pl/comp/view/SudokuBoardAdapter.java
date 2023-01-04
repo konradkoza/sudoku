@@ -15,12 +15,12 @@ public class SudokuBoardAdapter {
         this.column = column;
     }
 
-    public void setField(int value){
+    public void setField(int value) {
         board.setField(row, column, value);
 
     }
 
-    public int getField(){
+    public int getField() {
         return board.getField(row, column);
 
     }
