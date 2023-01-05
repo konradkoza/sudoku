@@ -4,6 +4,7 @@ module pl.comp.viewproject {
 
     requires org.controlsfx.controls;
     requires pl.comp;
+    requires org.slf4j;
 
     opens pl.comp.view to javafx.fxml;
     exports pl.comp.view;

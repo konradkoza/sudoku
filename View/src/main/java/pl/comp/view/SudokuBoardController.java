@@ -6,12 +6,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.StringConverter;
@@ -19,9 +17,12 @@ import lodz.p.pk.dao.Dao;
 import lodz.p.pk.dao.SudokuBoardDaoFactory;
 import lodz.p.pk.sudoku.BacktrackingSudokuSolver;
 import lodz.p.pk.sudoku.SudokuBoard;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SudokuBoardController {
 
+    private static Logger logger = LoggerFactory.getLogger(SudokuBoardController.class);
 
     @FXML
     private TextField fileText;
@@ -53,10 +54,10 @@ public class SudokuBoardController {
         solver.fillBoard(board);
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                System.out.print(board.getField(i,j) + "  ");
+                logger.info(board.getField(i,j) + "  ");
                 fieldValueProperty[i][j].set(board.getField(i,j));
             }
-            System.out.print("\n");
+            logger.info("\n");
         }
 
     }
