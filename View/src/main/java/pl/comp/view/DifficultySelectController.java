@@ -92,16 +92,14 @@ public class DifficultySelectController {
 
     @FXML
     private void startGame(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("SudokuBoard.fxml"), bundle);
-
-
-        SudokuBoardController sudokuBoardController = loader.getController();
         BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard board = new SudokuBoard(solver);
         board.solveGame();
         chosenLevel.deleteFields(board);
-        sudokuBoardController.initTextFields(board);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SudokuBoard.fxml"), bundle);
         Parent root = loader.load();
+        SudokuBoardController sudokuBoardController = loader.getController();
+        sudokuBoardController.initTextFields(board);
         StageManager.showStage(root);
     }
 
