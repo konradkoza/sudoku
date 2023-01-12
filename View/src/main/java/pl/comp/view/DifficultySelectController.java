@@ -15,8 +15,16 @@ import lodz.p.pk.dao.Dao;
 import lodz.p.pk.dao.SudokuBoardDaoFactory;
 import lodz.p.pk.sudoku.BacktrackingSudokuSolver;
 import lodz.p.pk.sudoku.SudokuBoard;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import pl.comp.view.exceptions.DaoException;
+import pl.comp.view.exceptions.FileException;
+import pl.comp.view.exceptions.InsertNumberException;
+import pl.comp.view.exceptions.LanguageException;
 
 public class DifficultySelectController {
+
+        private static Logger logger = LoggerFactory.getLogger(DifficultySelectController.class);
 
         private DifficultyLevel chosenLevel;
 
@@ -91,52 +99,89 @@ public class DifficultySelectController {
         }
 
     @FXML
-    private void startGame(ActionEvent event) throws IOException {
+    private void startGame(ActionEvent event) throws FileException, InsertNumberException {
         BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard board = new SudokuBoard(solver);
         board.solveGame();
         chosenLevel.deleteFields(board);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SudokuBoard.fxml"), bundle);
-        Parent root = loader.load();
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            logger.info(bundle.getString("GameNotStarted"));
+            throw new FileException(e);
+        }
         SudokuBoardController sudokuBoardController = loader.getController();
-        sudokuBoardController.initTextFields(board);
+        try {
+            sudokuBoardController.initTextFields(board);
+        } catch (InsertNumberException e) {
+            logger.info(bundle.getString("NumbersNotInserted"));
+            throw new InsertNumberException(e);
+        }
         StageManager.showStage(root);
     }
 
 
     @FXML
-    private void readFromFile(ActionEvent event) throws IOException {
+    private void readFromFile(ActionEvent event) throws DaoException, FileException,
+            InsertNumberException {
         String fileName = fileText.getText();
         SudokuBoard board;
 
         try (Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getFileDao(fileName)) {
             board = dao.read();
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            logger.info(bundle.getString("FileNotFound"));
+            throw new DaoException(e);
         }
         if (board != null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("SudokuBoard.fxml"), bundle);
-            Parent root = loader.load();
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                logger.info(bundle.getString("FileNotLoaded"));
+                throw new FileException(e);
+            }
             SudokuBoardController sudokuBoardController = loader.getController();
-            sudokuBoardController.initTextFields(board);
+            try {
+                sudokuBoardController.initTextFields(board);
+            } catch (InsertNumberException e) {
+                logger.info(bundle.getString("NumbersNotInserted"));
+                throw new InsertNumberException(e);
+            }
             StageManager.showStage(root);
         }
     }
 
     @FXML
-    private void selectPl(ActionEvent event) throws IOException {
+    private void selectPl(ActionEvent event) throws LanguageException {
         bundle = ResourceBundle.getBundle("pl.comp.view.LangBundle", localePL);
         Locale.setDefault(localePL);
 
-        Parent root = FXMLLoader.load(getClass().getResource("DifficultyLevel.fxml"), bundle);
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("DifficultyLevel.fxml"), bundle);
+        } catch (IOException e) {
+            logger.info(bundle.getString("selectLanErr"));
+            throw new LanguageException(e);
+        }
         StageManager.showStage(root);
     }
 
     @FXML
-    private void selectEn(ActionEvent event) throws IOException {
+    private void selectEn(ActionEvent event) throws LanguageException {
         bundle = ResourceBundle.getBundle("pl.comp.view.LangBundle", localeEN);
         Locale.setDefault(localeEN);
-        Parent root = FXMLLoader.load(getClass().getResource("DifficultyLevel.fxml"), bundle);
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("DifficultyLevel.fxml"), bundle);
+        } catch (IOException e) {
+            logger.info(bundle.getString("selectLanErr"));
+            throw new LanguageException(e);
+        }
         StageManager.showStage(root);
 
     }

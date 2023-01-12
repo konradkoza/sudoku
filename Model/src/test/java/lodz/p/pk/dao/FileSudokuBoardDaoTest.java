@@ -1,5 +1,7 @@
 package lodz.p.pk.dao;
 
+import lodz.p.pk.exceptions.ReadDaoException;
+import lodz.p.pk.exceptions.WriteDaoException;
 import lodz.p.pk.sudoku.BacktrackingSudokuSolver;
 import lodz.p.pk.sudoku.SudokuBoard;
 import org.junit.jupiter.api.Test;
@@ -9,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class FileSudokuBoardDaoTest {
 
     @Test
-    void readAndWrite() {
+    void readAndWrite() throws Exception {
         BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard board = new SudokuBoard(solver);
         Dao<SudokuBoard> fileDao;
@@ -19,6 +21,7 @@ class FileSudokuBoardDaoTest {
         fileDao.write(board);
         SudokuBoard board2 = fileDao.read();
         assertTrue(board.equals(board2));
+        fileDao.close();
 
 
     }

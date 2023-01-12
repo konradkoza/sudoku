@@ -1,5 +1,6 @@
 package pl.comp.view;
 
+import java.util.ResourceBundle;
 import javafx.beans.property.adapter.JavaBeanIntegerProperty;
 import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.beans.value.ChangeListener;
@@ -19,8 +20,14 @@ import lodz.p.pk.sudoku.BacktrackingSudokuSolver;
 import lodz.p.pk.sudoku.SudokuBoard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pl.comp.view.exceptions.InsertNumberException;
+import pl.comp.view.exceptions.SaveFileException;
+
+
 
 public class SudokuBoardController {
+
+    ResourceBundle bundle = ResourceBundle.getBundle("pl.comp.view.LangBundle");
 
     private static Logger logger = LoggerFactory.getLogger(SudokuBoardController.class);
 
@@ -63,7 +70,7 @@ public class SudokuBoardController {
     }
 
 
-    public void initTextFields(SudokuBoard board) {
+    public void initTextFields(SudokuBoard board) throws InsertNumberException {
         this.board = board;
         JavaBeanIntegerPropertyBuilder builder = JavaBeanIntegerPropertyBuilder.create();
         for (int i = 0; i < 9; i++) {
@@ -80,7 +87,8 @@ public class SudokuBoardController {
                             .name("Field")
                             .build();
                 } catch (NoSuchMethodException e) {
-                    throw new RuntimeException(e);
+                    logger.info(bundle.getString("NumberNotInserted"));
+                    throw new InsertNumberException(e);
                 }
 
                 newNumber.textProperty().bindBidirectional(fieldValueProperty[i][j], converter);
@@ -113,13 +121,13 @@ public class SudokuBoardController {
     }
 
     @FXML
-    public void saveToFile(ActionEvent event) {
+    public void saveToFile(ActionEvent event) throws SaveFileException {
         String fileName = fileText.getText();
         try (Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getFileDao(fileName)) {
             dao.write(board);
-
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            logger.info(bundle.getString("FileNotSaved"));
+            throw new SaveFileException(e);
         }
     }
 

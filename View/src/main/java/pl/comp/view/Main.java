@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 
-
 public class Main extends Application {
 
     Locale locale = new Locale.Builder()
@@ -16,8 +15,6 @@ public class Main extends Application {
             .build();
 
     ResourceBundle bundle = ResourceBundle.getBundle("pl.comp.view.LangBundle", locale);
-
-
 
     public static void main(String[] args) {
         launch(args);

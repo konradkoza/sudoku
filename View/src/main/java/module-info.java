@@ -8,4 +8,6 @@ module pl.comp.viewproject {
 
     opens pl.comp.view to javafx.fxml;
     exports pl.comp.view;
+    exports pl.comp.view.exceptions;
+    opens pl.comp.view.exceptions to javafx.fxml;
 }
