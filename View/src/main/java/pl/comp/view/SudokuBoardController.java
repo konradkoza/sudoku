@@ -8,6 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -122,13 +123,21 @@ public class SudokuBoardController {
 
     @FXML
     public void saveToFile(ActionEvent event) throws SaveFileException {
-        String fileName = fileText.getText();
-        try (Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getJdbcDao(fileName)) {
-            dao.write(board);
-        } catch (Exception e) {
-            logger.info(bundle.getString("FileNotSaved"));
-            throw new SaveFileException(e);
+        if(!fileText.getText().isEmpty()){
+            String fileName = fileText.getText();
+            try (Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getJdbcDao(fileName)) {
+                dao.write(board);
+            } catch (Exception e) {
+                logger.info(bundle.getString("FileNotSaved"));
+                throw new SaveFileException(e);
+            }
+        } else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(bundle.getString("warning"));
+            alert.setContentText(bundle.getString("badFileName"));
+            alert.show();
         }
+
     }
 
     public void initialize() {

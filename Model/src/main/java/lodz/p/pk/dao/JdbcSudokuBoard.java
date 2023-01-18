@@ -35,7 +35,7 @@ public class JdbcSudokuBoard implements Dao<SudokuBoard>, AutoCloseable {
 
     private void executeSQl(String sqlQuery, Connection conn) throws SqldatabaseException {
         try (PreparedStatement preparedStatement = conn.prepareStatement(sqlQuery)) {
-           conn.setAutoCommit(false);
+
            preparedStatement.execute();
            conn.commit();
         } catch (SQLException e) {
@@ -49,19 +49,23 @@ public class JdbcSudokuBoard implements Dao<SudokuBoard>, AutoCloseable {
     public SudokuBoard read() throws ReadDaoException, SqldatabaseException {
         SudokuSolver solver = new BacktrackingSudokuSolver();
         SudokuBoard board = new SudokuBoard(solver);
-        try {
-            conn = DriverManager.getConnection(jdbcUrl);
-        } catch (SQLException e) {
-            logger.info(bundle.getString("SqldatabaseException"));
-            throw new SqldatabaseException(e);
+        if (conn == null) {
+            try {
+                conn = DriverManager.getConnection(jdbcUrl);
+                conn.setAutoCommit(false);
+            } catch (SQLException e) {
+                logger.info(bundle.getString("SqldatabaseException"));
+                throw new SqldatabaseException(e);
+            }
         }
+
 
         String sqlValues = "SELECT value FROM SudokuFields" + boardName;
 
         try (Statement statement1 = conn.createStatement();
           ResultSet rs = statement1.executeQuery(sqlValues)) {
 
-            conn.setAutoCommit(false);
+
             while (rs.next()) {
                 board.setField(((rs.getRow() - 1) / 9),
                         (rs.getRow() - 1)  % 9, rs.getInt("value"));
@@ -76,11 +80,14 @@ public class JdbcSudokuBoard implements Dao<SudokuBoard>, AutoCloseable {
 
     @Override
     public void write(SudokuBoard obj) throws WriteDaoException, SqldatabaseException {
-        try {
-            conn = DriverManager.getConnection(jdbcUrl);
-        } catch (SQLException e) {
-            logger.info(bundle.getString("SqldatabaseException"));
-            throw new SqldatabaseException(e);
+        if (conn == null) {
+            try {
+                conn = DriverManager.getConnection(jdbcUrl);
+                conn.setAutoCommit(false);
+            } catch (SQLException e) {
+                logger.info(bundle.getString("SqldatabaseException"));
+                throw new SqldatabaseException(e);
+            }
         }
         String sqlBoardTable = "CREATE TABLE IF NOT EXISTS boards "
                 + "(boardID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
@@ -113,7 +120,7 @@ public class JdbcSudokuBoard implements Dao<SudokuBoard>, AutoCloseable {
              PreparedStatement preparedStatement4 = conn.prepareStatement(sqlFieldsInsert);
              ResultSet rs = conn.createStatement().executeQuery(selectID);
         ) {
-            conn.setAutoCommit(false);
+
 
             for (int i = 0; i < 81; i++) {
                 preparedStatement4.setInt(1, obj.getField((i / 9),i % 9));

@@ -143,30 +143,38 @@ public class DifficultySelectController {
             InsertNumberException {
         String fileName = fileText.getText();
         SudokuBoard board;
+        if(!fileText.getText().isEmpty()) {
+            try (Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getJdbcDao(fileName)) {
+                board = dao.read();
+            } catch (Exception e) {
+                logger.info(bundle.getString("FileNotFound"));
+                throw new DaoException(e);
+            }
+            if (board != null) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("SudokuBoard.fxml"), bundle);
+                Parent root = null;
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    logger.info(bundle.getString("FileNotLoaded"));
+                    throw new FileException(e);
+                }
+                SudokuBoardController sudokuBoardController = loader.getController();
+                try {
+                    sudokuBoardController.initTextFields(board);
+                } catch (InsertNumberException e) {
 
-        try (Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getJdbcDao(fileName)) {
-            board = dao.read();
-        } catch (Exception e) {
-            logger.info(bundle.getString("FileNotFound"));
-            throw new DaoException(e);
-        }
-        if (board != null) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("SudokuBoard.fxml"), bundle);
-            Parent root = null;
-            try {
-                root = loader.load();
-            } catch (IOException e) {
-                logger.info(bundle.getString("FileNotLoaded"));
-                throw new FileException(e);
+                    logger.info(bundle.getString("NumbersNotInserted"));
+                    throw new InsertNumberException(e);
+
+                }
+                StageManager.showStage(root);
             }
-            SudokuBoardController sudokuBoardController = loader.getController();
-            try {
-                sudokuBoardController.initTextFields(board);
-            } catch (InsertNumberException e) {
-                logger.info(bundle.getString("NumbersNotInserted"));
-                throw new InsertNumberException(e);
-            }
-            StageManager.showStage(root);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(bundle.getString("warning"));
+            alert.setContentText(bundle.getString("badFileName"));
+            alert.show();
         }
     }
 
