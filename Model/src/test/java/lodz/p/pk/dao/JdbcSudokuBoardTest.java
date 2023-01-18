@@ -19,5 +19,25 @@ class JdbcSudokuBoardTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        SudokuBoard board1 = null;
+        try(Dao<SudokuBoard> jdbcDao = SudokuBoardDaoFactory.getJdbcDao("testBoard");) {
+            board1 = jdbcDao.read();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                System.out.print(board.getField(i, j) + "  ");
+            }
+            System.out.print("\n");
+        }
+        System.out.print("\n");
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                System.out.print(board1.getField(i, j) + "  ");
+            }
+            System.out.print("\n");
+        }
+        System.out.println(board.equals(board1));
     }
 }

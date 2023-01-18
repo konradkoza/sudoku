@@ -2,8 +2,11 @@ package lodz.p.pk.dao;
 
 import lodz.p.pk.exceptions.ReadDaoException;
 import lodz.p.pk.exceptions.WriteDaoException;
+import lodz.p.pk.sudoku.BacktrackingSudokuSolver;
 import lodz.p.pk.sudoku.SudokuBoard;
+import lodz.p.pk.sudoku.SudokuSolver;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 
 public class JdbcSudokuBoard implements Dao<SudokuBoard>, AutoCloseable {
@@ -29,22 +32,27 @@ public class JdbcSudokuBoard implements Dao<SudokuBoard>, AutoCloseable {
 
     @Override
     public SudokuBoard read() throws ReadDaoException {
+        SudokuSolver solver = new BacktrackingSudokuSolver();
+        SudokuBoard board = new SudokuBoard(solver);
         try {
             conn = DriverManager.getConnection(jdbcUrl);
         } catch (SQLException e) {
             throw new RuntimeException(e); //dodac własny wyjatek
         }
 
-        String sqlValues = "SELECT values FROM SudokuFields" + boardName;
+        String sqlValues = "SELECT value FROM SudokuFields" + boardName;
 
-        try (PreparedStatement preparedStatement1 = conn.prepareStatement(sqlValues)){
+        try (Statement statement1 = conn.createStatement()){
 
-            preparedStatement1.execute();
-            conn.commit();
+            ResultSet rs = statement1.executeQuery(sqlValues);
+            while (rs.next()){
+                board.setField((rs.getRow()) % 9, (int)((rs.getRow()) / 9), rs.getInt("value"));
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return board;
     }
 
     @Override
@@ -88,11 +96,13 @@ public class JdbcSudokuBoard implements Dao<SudokuBoard>, AutoCloseable {
 
             for (int i = 0; i < 81; i++) {
                 preparedStatement4.setInt(1, obj.getField(i % 9, (int)(i / 9)));
+                System.out.print("i: "+ i % 9 +"j: "+ i / 9);
                 preparedStatement4.setInt(2, i);
                 preparedStatement4.setInt(3, rs.getInt("boardID"));
                 preparedStatement4.executeUpdate();
+                conn.commit();
             }
-            conn.commit();
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
