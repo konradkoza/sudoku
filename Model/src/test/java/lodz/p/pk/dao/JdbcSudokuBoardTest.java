@@ -1,9 +1,13 @@
 package lodz.p.pk.dao;
 
+import lodz.p.pk.exceptions.SqldatabaseException;
 import lodz.p.pk.exceptions.WriteDaoException;
 import lodz.p.pk.sudoku.BacktrackingSudokuSolver;
 import lodz.p.pk.sudoku.SudokuBoard;
+import lodz.p.pk.sudoku.SudokuSolver;
 import org.junit.jupiter.api.Test;
+
+import java.util.MissingResourceException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,19 +29,20 @@ class JdbcSudokuBoardTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                System.out.print(board.getField(i, j) + "  ");
-            }
-            System.out.print("\n");
-        }
-        System.out.print("\n");
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                System.out.print(board1.getField(i, j) + "  ");
-            }
-            System.out.print("\n");
-        }
         assertTrue(board.equals(board1));
+    }
+
+    @Test
+    void exceptionTest() {
+        assertDoesNotThrow(() ->{
+            Dao<SudokuBoard> jdbcDao = SudokuBoardDaoFactory.getJdbcDao("testBoard");
+            BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
+            SudokuBoard sb = new SudokuBoard(solver);
+            SudokuBoard sb2;
+            jdbcDao.read();
+            jdbcDao.write(sb);
+            sb2 = jdbcDao.read();
+            jdbcDao.close();
+        } );
     }
 }
