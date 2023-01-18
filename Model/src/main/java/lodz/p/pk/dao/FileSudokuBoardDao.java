@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ResourceBundle;
-
 import lodz.p.pk.exceptions.ReadDaoException;
 import lodz.p.pk.exceptions.WriteDaoException;
 import lodz.p.pk.sudoku.SudokuBoard;
