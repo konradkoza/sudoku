@@ -3,6 +3,8 @@ package pl.comp.view;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -98,6 +100,19 @@ public class DifficultySelectController {
             }
         }
 
+    public void initialize() {
+            fileText.textProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observable,
+                                    String oldValue, String newValue) {
+                    if (!(newValue.matches("[A-Za-z1-9]+") || newValue.equals(""))) {
+                        fileText.setText(oldValue);
+
+                    }
+                }
+            });
+    }
+
     @FXML
     private void startGame(ActionEvent event) throws FileException, InsertNumberException {
         BacktrackingSudokuSolver solver = new BacktrackingSudokuSolver();
@@ -129,7 +144,7 @@ public class DifficultySelectController {
         String fileName = fileText.getText();
         SudokuBoard board;
 
-        try (Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getFileDao(fileName)) {
+        try (Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getJdbcDao(fileName)) {
             board = dao.read();
         } catch (Exception e) {
             logger.info(bundle.getString("FileNotFound"));

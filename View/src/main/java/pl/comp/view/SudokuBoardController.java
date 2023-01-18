@@ -123,7 +123,7 @@ public class SudokuBoardController {
     @FXML
     public void saveToFile(ActionEvent event) throws SaveFileException {
         String fileName = fileText.getText();
-        try (Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getFileDao(fileName)) {
+        try (Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getJdbcDao(fileName)) {
             dao.write(board);
         } catch (Exception e) {
             logger.info(bundle.getString("FileNotSaved"));
@@ -134,15 +134,15 @@ public class SudokuBoardController {
     public void initialize() {
 
 
-    //        board.solveGame();
-    //        diffLevel.deleteFields(board);
-    //        for (int i = 0; i < 9; i++) {
-    //            for (int j = 0; j < 9; j++) {
-    //                System.out.print(board.getField(i,j));
-    //            }
-    //            System.out.print("\n");
-    //        }
+        fileText.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                                String oldValue, String newValue) {
+                if (!(newValue.matches("[A-Za-z1-9]+") || newValue.equals(""))) {
+                    fileText.setText(oldValue);
 
-    //        initTextFields(board);
+                }
+            }
+        });
     }
 }
