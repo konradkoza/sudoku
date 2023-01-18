@@ -3,10 +3,8 @@ package lodz.p.pk.dao;
 import lodz.p.pk.exceptions.ReadDaoException;
 import lodz.p.pk.exceptions.WriteDaoException;
 import lodz.p.pk.sudoku.SudokuBoard;
-import java.sql.PreparedStatement;
-import java.sql.DriverManager;
-import java.sql.Connection;
-import java.sql.SQLException;
+
+import java.sql.*;
 
 public class JdbcSudokuBoard implements Dao<SudokuBoard>, AutoCloseable {
 
@@ -20,10 +18,33 @@ public class JdbcSudokuBoard implements Dao<SudokuBoard>, AutoCloseable {
 
     private Connection conn = null;
 
+    private void executeSQl(String sqlQuery, Connection conn){
+        try(PreparedStatement preparedStatement = conn.prepareStatement(sqlQuery)){
+           preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @Override
     public SudokuBoard read() throws ReadDaoException {
-        return null;
+        try {
+            conn = DriverManager.getConnection(jdbcUrl);
+        } catch (SQLException e) {
+            throw new RuntimeException(e); //dodac własny wyjatek
+        }
+
+        String sqlValues = "SELECT values FROM SudokuFields" + boardName;
+
+        try (PreparedStatement preparedStatement1 = conn.prepareStatement(sqlValues)){
+
+            preparedStatement1.execute();
+            conn.commit();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -34,21 +55,43 @@ public class JdbcSudokuBoard implements Dao<SudokuBoard>, AutoCloseable {
             throw new RuntimeException(e); //dodac własny wyjatek
         }
         // sql queries do napisania
-        String sqlBoardTable = "CREATE TABLE IF NOT EXISTS boards"
-                + " (boardID text PRIMARY KEY NOT NULL, boardName text";
-        String sqlBoardTableInsert = "INSERT INTO boards (boardName, 12) values (?, ?)";
-        String sqlFieldsTable = "";
+        String sqlBoardTable = "CREATE TABLE IF NOT EXISTS boards " +
+                "(boardID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, boardName TEXT, UNIQUE(boardName))";
+
+        String sqlBoardTableInsert = "INSERT OR IGNORE INTO boards (boardName) values (?)";
+
+        String sqlDropFields = "DROP TABLE IF EXISTS SudokuFields" + boardName;
+        String sqlFieldsTable =  "CREATE TABLE IF NOT EXISTS "+ "SudokuFields" + boardName +
+                "(value INTEGER, position INTEGER, boardID INTEGER, FOREIGN KEY(boardID) REFERENCES boards(boardID))";
+
+        String sqlFieldsInsert = "INSERT INTO SudokuFields" + boardName + "(value, position, boardID) values (?,?,?)";
+        String selectID = "SELECT boardID FROM boards ORDER BY boardID DESC LIMIT 1";
+
+        executeSQl(sqlBoardTable, conn);
+        executeSQl(sqlDropFields, conn);
+        executeSQl(sqlFieldsTable, conn);
+
+        try (PreparedStatement preparedStatement2 = conn.prepareStatement(sqlBoardTableInsert)){
+            preparedStatement2.setString(1, boardName);
+            preparedStatement2.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (
+             PreparedStatement preparedStatement4 = conn.prepareStatement(sqlFieldsInsert);
+             ResultSet rs = conn.createStatement().executeQuery(selectID);
+        ) {
+            conn.setAutoCommit(false);
 
 
 
-        try (PreparedStatement preparedStatement1 = conn.prepareStatement(sqlBoardTable);
-             PreparedStatement preparedStatement2 = conn.prepareStatement(sqlFieldsTable);
-             PreparedStatement preparedStatement3 = conn.prepareStatement(sqlBoardTableInsert)) {
-            preparedStatement1.setString(1, boardName);
-            preparedStatement1.execute();
-
-            preparedStatement2.setString(1, "x"); // dodawanie pol
-            preparedStatement2.execute();
+            for (int i = 0; i < 81; i++) {
+                preparedStatement4.setInt(1, obj.getField(i % 9, (int)(i / 9)));
+                preparedStatement4.setInt(2, i);
+                preparedStatement4.setInt(3, rs.getInt("boardID"));
+                preparedStatement4.executeUpdate();
+            }
             conn.commit();
 
         } catch (SQLException e) {
