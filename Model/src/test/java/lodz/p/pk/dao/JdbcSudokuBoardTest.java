@@ -38,6 +38,6 @@ class JdbcSudokuBoardTest {
             }
             System.out.print("\n");
         }
-        System.out.println(board.equals(board1));
+        assertTrue(board.equals(board1));
     }
 }

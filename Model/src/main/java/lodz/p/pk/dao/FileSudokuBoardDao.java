@@ -16,7 +16,7 @@ public class FileSudokuBoardDao implements Dao<SudokuBoard> {
 
     private static Logger logger = LoggerFactory.getLogger(FileSudokuBoardDao.class);
 
-    ResourceBundle bundle = ResourceBundle.getBundle("lodz.p.pl.LangBundle");
+    ResourceBundle bundle = ResourceBundle.getBundle("LangBundle");
 
     private String fileName;
 
