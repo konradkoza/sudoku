@@ -35,7 +35,7 @@
         </GridPane>
       <AnchorPane layoutX="632.0" layoutY="212.0" prefHeight="238.0" prefWidth="163.0">
          <children>
-<!--            <Button fx:id="showButton" layoutX="56.0" layoutY="106.0" mnemonicParsing="false" onAction="#printBoard" text="Button" />-->
+            <Button fx:id="showButton" layoutX="56.0" layoutY="106.0" mnemonicParsing="false" onAction="#printBoard" text="%check" />
             <Button fx:id="saveButton" layoutX="46.0" layoutY="166.0" mnemonicParsing="false" onAction="#saveToFile" text="%saveGame" />
             <TextField fx:id="fileText" layoutX="8.0" layoutY="199.0" promptText="%fileName" />
          </children>

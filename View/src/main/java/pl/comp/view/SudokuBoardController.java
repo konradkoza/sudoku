@@ -18,6 +18,7 @@ import javafx.util.StringConverter;
 import lodz.p.pk.dao.Dao;
 import lodz.p.pk.dao.SudokuBoardDaoFactory;
 import lodz.p.pk.sudoku.BacktrackingSudokuSolver;
+import lodz.p.pk.sudoku.Observer;
 import lodz.p.pk.sudoku.SudokuBoard;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +50,8 @@ public class SudokuBoardController {
 
     private SudokuBoard board;
 
+    private Observer observer = new Observer();
+
     private final JavaBeanIntegerProperty[][] fieldValueProperty =
             new JavaBeanIntegerProperty[9][9];
 
@@ -59,20 +62,31 @@ public class SudokuBoardController {
     //    }
 
     public void printBoard() {
-        solver.fillBoard(board);
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                logger.info(board.getField(i,j) + "  ");
-                fieldValueProperty[i][j].set(board.getField(i,j));
-            }
-            logger.info("\n");
+//        solver.fillBoard(board);
+//        for (int i = 0; i < 9; i++) {
+//            for (int j = 0; j < 9; j++) {
+//                logger.info(board.getField(i,j) + "  ");
+//                fieldValueProperty[i][j].set(board.getField(i,j));
+//            }
+//            logger.info("\n");
+//        }
+        if(observer.isCorrect()){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Gratulacje");
+            alert.setContentText("Wszystkie pola sudoku są poprawne");
+            alert.show();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Blad");
+            alert.setContentText("Sudoku zawiera błędy");
+            alert.show();
         }
-
     }
 
 
     public void initTextFields(SudokuBoard board) throws InsertNumberException {
         this.board = board;
+        board.addPropertyChangeListener(observer);
         JavaBeanIntegerPropertyBuilder builder = JavaBeanIntegerPropertyBuilder.create();
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
@@ -123,7 +137,7 @@ public class SudokuBoardController {
 
     @FXML
     public void saveToFile(ActionEvent event) throws SaveFileException {
-        if(!fileText.getText().isEmpty()){
+        if (!fileText.getText().isEmpty()) {
             String fileName = fileText.getText();
             try (Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getJdbcDao(fileName)) {
                 dao.write(board);
@@ -131,7 +145,7 @@ public class SudokuBoardController {
                 logger.info(bundle.getString("FileNotSaved"));
                 throw new SaveFileException(e);
             }
-        } else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(bundle.getString("warning"));
             alert.setContentText(bundle.getString("badFileName"));

@@ -67,7 +67,7 @@ public class JdbcSudokuBoard implements Dao<SudokuBoard>, AutoCloseable {
 
 
             while (rs.next()) {
-                board.setField(((rs.getRow() - 1) / 9),
+                board.setField((rs.getRow() - 1) / 9,
                         (rs.getRow() - 1)  % 9, rs.getInt("value"));
             }
             conn.commit();
@@ -123,7 +123,7 @@ public class JdbcSudokuBoard implements Dao<SudokuBoard>, AutoCloseable {
 
 
             for (int i = 0; i < 81; i++) {
-                preparedStatement4.setInt(1, obj.getField((i / 9),i % 9));
+                preparedStatement4.setInt(1, obj.getField(i / 9,i % 9));
                 preparedStatement4.setInt(2, i);
                 preparedStatement4.setInt(3, rs.getInt("boardID"));
                 preparedStatement4.addBatch();

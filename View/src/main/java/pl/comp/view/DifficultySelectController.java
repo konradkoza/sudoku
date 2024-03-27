@@ -143,7 +143,7 @@ public class DifficultySelectController {
             InsertNumberException {
         String fileName = fileText.getText();
         SudokuBoard board;
-        if(!fileText.getText().isEmpty()) {
+        if (!fileText.getText().isEmpty()) {
             try (Dao<SudokuBoard> dao = SudokuBoardDaoFactory.getJdbcDao(fileName)) {
                 board = dao.read();
             } catch (Exception e) {
@@ -151,7 +151,8 @@ public class DifficultySelectController {
                 throw new DaoException(e);
             }
             if (board != null) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("SudokuBoard.fxml"), bundle);
+                FXMLLoader loader =
+                        new FXMLLoader(getClass().getResource("SudokuBoard.fxml"), bundle);
                 Parent root = null;
                 try {
                     root = loader.load();

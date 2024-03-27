@@ -15,7 +15,7 @@ abstract class SudokuElement {
     public boolean verify() {
         for (int i = 0; i < 9; i++) {
             for (int j = i + 1; j < 9; j++) {
-                if (fields.get(i).getValue() == fields.get(j).getValue()) {
+                if (fields.get(i).getValue() == fields.get(j).getValue() & fields.get(i).getValue() != 0) {
                     return false;
                 }
             }

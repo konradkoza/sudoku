@@ -2,6 +2,8 @@ package lodz.p.pk.sudoku;
 
 
 import com.google.common.base.Objects;
+
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
@@ -10,7 +12,7 @@ import java.util.List;
 
 public class SudokuBoard implements Serializable, Cloneable {
 
-
+    private boolean isCorrect = false;
     private final SudokuSolver sudokuSolver;
 
     private final List<SudokuField> board = Arrays.asList(new SudokuField[81]);
@@ -84,9 +86,9 @@ public class SudokuBoard implements Serializable, Cloneable {
     }
 
     public void setField(int i, int j, int number) {
-        boolean checkBeforeChange = this.checkBoard();
         board.get(i * 9 + j).setValue(number);
-        support.firePropertyChange("isCorrect", checkBeforeChange, this.checkBoard());
+        support.firePropertyChange("isCorrect", this.isCorrect, this.checkBoard());
+        this.isCorrect = this.checkBoard();
     }
 
     @Override
